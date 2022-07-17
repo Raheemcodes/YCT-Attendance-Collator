@@ -43,11 +43,12 @@ export class AppComponent implements OnInit {
       this.attendanceSerice.isLoading.subscribe((res) => {
         this.loaded = res;
 
+        document.body.style.overflow = 'hidden';
+
         if (this.loaded && document.body.hasAttribute('style')) {
           document.body.removeAttribute('style');
           return;
         }
-        document.body.style.overflow = 'hidden';
       });
     }
   }
