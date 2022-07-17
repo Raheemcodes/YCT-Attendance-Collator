@@ -1,0 +1,217 @@
+/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Lobster+Two:wght@400;700&family=Montserrat:wght@400;700&family=Open+Sans:wght@400;700&family=Roboto:wght@400;700;900&display=swap');
+
+@mixin display-flex() {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+@mixin general-flex() {
+  @include display-flex();
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+* {
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+
+  &:focus {
+    outline: none;
+  }
+
+  a {
+    text-decoration: none;
+    color: #003200;
+  }
+
+  button {
+    cursor: pointer;
+  }
+
+}
+
+html {
+
+  &::-webkit-scrollbar {
+    width: 7px; /* width of the entire scrollbar */
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent; /* color of the tracking area */
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: rgb(172, 172, 172); /* color of the scroll thumb */
+    border-radius: 20px; /* roundness of the scroll thumb */
+    border: 3px solid transparent; /* creates padding around scroll thumb */
+  }
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: whitesmoke;
+  color: rgb(34, 34, 34);
+  margin: 0;
+  padding: 0;
+}
+
+app-home {
+  @include general-flex();
+}
+
+app-map {
+  @include general-flex();
+  background-color: #256325;
+  margin: 3.5rem 0;
+
+  @media (min-width: 48rem) {
+    margin-top: 5rem;
+  }
+}
+
+app-student {
+  @include display-flex();
+  justify-content: center;
+  align-items: flex-end;
+  width: 100vw;
+  height: -webkit-fill-available;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 15;
+}
+
+app-aggregate {
+  @include general-flex();
+}
+
+app-record {
+  @include general-flex();
+}
+
+app-student-attendance {
+  @include general-flex();
+}
+
+app-create-record {
+  @include general-flex();
+}
+
+app-mark-attendance {
+  @include general-flex();
+}
+
+app-attendance-records {
+  @include general-flex();
+}
+
+app-programmes {
+  @include general-flex();
+}
+
+app-session {
+  @include general-flex();
+}
+
+.lds-ellipsis {
+  display: inline-block;
+  position: relative;
+  right: 0;
+  width: 80px;
+  height: 80px;
+
+  div {
+    position: absolute;
+    top: 33px;
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    background: #256325;
+    animation-timing-function: cubic-bezier(0, 1, 1, 0);
+
+    &:nth-child(1) {
+      left: 8px;
+      animation: lds-ellipsis1 0.6s infinite;
+    }
+
+    &:nth-child(2) {
+      left: 8px;
+      animation: lds-ellipsis2 0.6s infinite;
+    }
+
+    &:nth-child(3) {
+      left: 32px;
+      animation: lds-ellipsis2 0.6s infinite;
+    }
+
+    &:nth-child(4) {
+      left: 56px;
+      animation: lds-ellipsis3 0.6s infinite;
+    }
+  }
+}
+
+.lds-ring {
+  display: inline-block;
+  position: relative;
+  width: 1.5rem;
+  height: 1.5rem;
+}
+.lds-ring div {
+  box-sizing: border-box;
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border: 6px solid #fff;
+  border-radius: 50%;
+  animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  border-color: #fff transparent transparent transparent;
+}
+.lds-ring div:nth-child(1) {
+  animation-delay: -0.45s;
+}
+.lds-ring div:nth-child(2) {
+  animation-delay: -0.3s;
+}
+.lds-ring div:nth-child(3) {
+  animation-delay: -0.15s;
+}
+
+@keyframes lds-ellipsis1 {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes lds-ellipsis3 {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+@keyframes lds-ellipsis2 {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(24px, 0);
+  }
+}
+
+@keyframes lds-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

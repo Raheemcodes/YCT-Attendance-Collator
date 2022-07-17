@@ -1,0 +1,171 @@
+<h1>Create New Record!</h1>
+
+<p *ngIf="error && !isLoading" class="error-box">{{ error }}</p>
+
+<form class="form-control" #createForm="ngForm" (ngSubmit)="submit(createForm)">
+  <div class="form-input__cover">
+    <label class="display-input" for="session">
+      <div>1</div>
+      Enter Session</label
+    >
+    <input
+      autocomplete="off"
+      type="text"
+      name="session"
+      [ngClass]="{
+        'form-input': true,
+        'ng-valid': !error,
+        'ng-invalid ng-touched': error
+      }"
+      placeholder="e.g 2021/2022 or 2021"
+      [ngModel]="sessionTitle"
+      required
+      #session="ngModel"
+      minlength="1"
+      [readonly]="!!sessionTitle"
+    />
+
+    <span class="help-block" *ngIf="!session.valid && session.touched"
+      >Please enter a valid session</span
+    >
+  </div>
+  <div class="form-input__cover">
+    <label for="session"
+      ><div>2</div>
+      Enter Programme</label
+    >
+    <input
+      autocomplete="off"
+      type="text"
+      name="programme"
+      [ngClass]="{
+        'form-input': true,
+        'ng-valid': !error,
+        'ng-invalid ng-touched': error
+      }"
+      placeholder="e.g ND1 or Level-100"
+      [ngModel]="progTitle"
+      required
+      #programme="ngModel"
+      minlength="1"
+      [readonly]="!!progTitle"
+    />
+
+    <span class="help-block" *ngIf="!programme.valid && programme.touched"
+      >Please enter a valid programme</span
+    >
+  </div>
+  <div class="form-input__cover">
+    <label for="session"
+      ><div>3</div>
+      Enter First Course</label
+    >
+    <input
+      autocomplete="off"
+      type="text"
+      name="course"
+      [ngClass]="{
+        'form-input': true,
+        'ng-valid': !error,
+        'ng-invalid ng-touched': error
+      }"
+      placeholder="eg. COM121"
+      ngModel
+      required
+      #course="ngModel"
+      minlength="1"
+    />
+
+    <span class="help-block" *ngIf="!course.valid && course.touched"
+      >Course is required!</span
+    >
+  </div>
+  <div class="form-input__cover">
+    <label for="session"
+      ><div>4</div>
+      Enter First Matric Number</label
+    >
+    <div class="matric-cover">
+      <input
+        autocomplete="off"
+        [ngClass]="{
+          'form-input': true,
+          'matric-input': true,
+          'ng-valid': !error,
+          'ng-invalid ng-touched': error
+        }"
+        type="text"
+        name="matricNumber"
+        placeholder="F/ND/19/"
+        ngModel
+        required
+        #matricNumber="ngModel"
+        minlength="1"
+      />
+      <input
+        autocomplete="off"
+        [ngClass]="{
+          'form-input': true,
+          'matric-input': true,
+          'ng-valid': !error,
+          'ng-invalid ng-touched': error
+        }"
+        type="number"
+        name="indexNumber"
+        placeholder="3210001"
+        ngModel
+        required
+        #indexNumber="ngModel"
+      />
+    </div>
+
+    <span
+      class="help-block"
+      *ngIf="
+        (!indexNumber.valid && indexNumber.touched) ||
+        (!matricNumber.valid && matricNumber.touched)
+      "
+      >Enter matric Number</span
+    >
+  </div>
+  <div class="form-input__cover">
+    <label for="session"
+      ><div>5</div>
+      Number of {{ course.value }} Students</label
+    >
+    <input
+      autocomplete="off"
+      type="number"
+      name="totalNumber"
+      [ngClass]="{
+        'form-input': true,
+        'ng-valid': !error,
+        'ng-invalid ng-touched': error
+      }"
+      placeholder="e.g 50"
+      ngModel
+      required
+      #totalNumber="ngModel"
+      min="1"
+      max="500"
+    />
+
+    <span class="help-block" *ngIf="!totalNumber.valid && totalNumber.touched"
+      >Please enter a valid number with 500 max</span
+    >
+  </div>
+  <button
+    *ngIf="!isLoading"
+    type="submit"
+    class="form-btn create"
+    [disabled]="!createForm.valid"
+  >
+    create
+  </button>
+  <div *ngIf="isLoading" class="lds-ellipsis loader">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+</form>

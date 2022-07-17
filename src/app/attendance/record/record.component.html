@@ -1,0 +1,121 @@
+<div *ngIf="isLoading" class="lds-ellipsis loader">
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+</div>
+
+<app-loader *ngIf="statusProcessing"></app-loader>
+
+<h1 *ngIf="attendance.length > 0 && !isLoading">
+  Attendance <span>[{{ date }}]</span>
+</h1>
+
+<div class="link-cover" *ngIf="link && attendance.length > 0 && !isLoading">
+  <input [value]="link" type="text" #input readonly />
+  <div class="link-action__cover">
+    <div class="link-action" (click)="copy(input)">
+      <svg x="0" y="0" viewBox="0 0 32 32" xml:space="preserve">
+        <g>
+          <g xmlns="http://www.w3.org/2000/svg" id="Ikon">
+            <path
+              d="M26.1211,6.707,22.293,2.8789A2.9794,2.9794,0,0,0,20.1719,2H12A3.0033,3.0033,0,0,0,9,5V6H8A3.0033,3.0033,0,0,0,5,9V27a3.0033,3.0033,0,0,0,3,3H20a3.0033,3.0033,0,0,0,3-3V26h1a3.0033,3.0033,0,0,0,3-3V8.8286A2.9818,2.9818,0,0,0,26.1211,6.707ZM22,5.4141,23.5859,7H22ZM20,28H8a1.0013,1.0013,0,0,1-1-1V9A1.0013,1.0013,0,0,1,8,8h8v3a2.002,2.002,0,0,0,2,2h3V27A1.0009,1.0009,0,0,1,20,28ZM18,9.4141,19.5859,11H18ZM24,24H23V12.8286a2.9818,2.9818,0,0,0-.8789-2.1216L18.293,6.8789A2.98,2.98,0,0,0,16.1714,6H11V5a1.0013,1.0013,0,0,1,1-1h8V7a2.0023,2.0023,0,0,0,2,2h3V23A1.0009,1.0009,0,0,1,24,24Zm-6-8H10a1,1,0,0,1,0-2h8A1,1,0,0,1,18,16Zm0,4H10a1,1,0,0,1,0-2h8A1,1,0,0,1,18,20Zm0,4H10a1,1,0,0,1,0-2h8A1,1,0,0,1,18,24Z"
+              fill="#ffffff"
+              data-original="#000000"
+              class=""
+            ></path>
+          </g>
+        </g>
+      </svg>
+    </div>
+    <div class="link-action" (click)="share(input)">
+      <svg x="0" y="0" viewBox="0 0 512 512" xml:space="preserve">
+        <g>
+          <g xmlns="http://www.w3.org/2000/svg">
+            <g>
+              <path
+                d="M406,332c-29.641,0-55.761,14.581-72.167,36.755L191.99,296.124c2.355-8.027,4.01-16.346,4.01-25.124    c0-11.906-2.441-23.225-6.658-33.636l148.445-89.328C354.307,167.424,378.589,180,406,180c49.629,0,90-40.371,90-90    c0-49.629-40.371-90-90-90c-49.629,0-90,40.371-90,90c0,11.437,2.355,22.286,6.262,32.358l-148.887,89.59    C156.869,193.136,132.937,181,106,181c-49.629,0-90,40.371-90,90c0,49.629,40.371,90,90,90c30.13,0,56.691-15.009,73.035-37.806    l141.376,72.395C317.807,403.995,316,412.75,316,422c0,49.629,40.371,90,90,90c49.629,0,90-40.371,90-90    C496,372.371,455.629,332,406,332z"
+                fill="#ffffff"
+                data-original="#000000"
+                class=""
+              ></path>
+            </g>
+          </g>
+          <g xmlns="http://www.w3.org/2000/svg"></g>
+          <g xmlns="http://www.w3.org/2000/svg"></g>
+          <g xmlns="http://www.w3.org/2000/svg"></g>
+          <g xmlns="http://www.w3.org/2000/svg"></g>
+          <g xmlns="http://www.w3.org/2000/svg"></g>
+          <g xmlns="http://www.w3.org/2000/svg"></g>
+          <g xmlns="http://www.w3.org/2000/svg"></g>
+          <g xmlns="http://www.w3.org/2000/svg"></g>
+          <g xmlns="http://www.w3.org/2000/svg"></g>
+          <g xmlns="http://www.w3.org/2000/svg"></g>
+          <g xmlns="http://www.w3.org/2000/svg"></g>
+          <g xmlns="http://www.w3.org/2000/svg"></g>
+          <g xmlns="http://www.w3.org/2000/svg"></g>
+          <g xmlns="http://www.w3.org/2000/svg"></g>
+          <g xmlns="http://www.w3.org/2000/svg"></g>
+        </g>
+      </svg>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="attendance.length > 0 && !isLoading" class="link-cover search-box">
+  <input
+    class="form-input"
+    type="search"
+    #search
+    (input)="onSearch(search)"
+    placeholder="Search Matric Number"
+  />
+</div>
+
+<div *ngIf="attendance.length > 0 && !isLoading" class="sort-box">
+  <Label>Sort By:</Label>
+  <div class="btn-cover">
+    <span #index (click)="sortBy('index', index, status)">Index</span>
+    <span #status class="inactive" (click)="sortBy('status', index, status)"
+      >Status</span
+    >
+  </div>
+</div>
+
+<h2 *ngIf="attendance.length > 0 && !isLoading">
+  <span class="number-title">S/N</span>
+  <span class="matric-title">Matric Number</span>
+  <span class="status-title">Status</span>
+</h2>
+
+<ul *ngIf="attendance.length > 0 && !isLoading" class="records" #list>
+  <li *ngFor="let attendanceLine of attendance; let i = index" class="record">
+    <div class="number">{{ i + 1 }}.</div>
+    <div class="matric-number">{{ attendanceLine.matricNumber }}</div>
+    <div class="status">
+      <div
+        [style]="
+          attendanceLine.status == 'Present' ? '' : 'background-color: #d3ce47'
+        "
+        #drop
+        class="current"
+        (click)="dropdown(drop, list)"
+      >
+        {{ attendanceLine.status }}
+        <div class="dropdown-arrow"></div>
+      </div>
+      <div class="status-opt">
+        <div class="present" (click)="changeStatus(true, attendanceLine._id)">
+          Present
+        </div>
+        <div class="absent" (click)="changeStatus(false, attendanceLine._id)">
+          Absent
+        </div>
+      </div>
+    </div>
+  </li>
+</ul>
+
+<span *ngIf="attendance.length > 0 && !isLoading" class="timeout"
+  >Time Left - {{ hours }} hour : {{ minutes }} mins</span
+>

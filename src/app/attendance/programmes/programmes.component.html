@@ -1,0 +1,195 @@
+<app-modal [message]="confirmMsg" *ngIf="confirm"></app-modal>
+<app-loader *ngIf="isLoading"></app-loader>
+<h1>Programmes & Courses</h1>
+
+<h2 *ngIf="programmes.length == 0">
+  You haven't added Programmes to this session.
+  <a routerLink="/create-record" [queryParams]="{ session: sessionId }"
+    >Click here!</a
+  >
+  to do so
+</h2>
+<ul *ngIf="programmes.length > 0" class="programmes" #prog>
+  <li
+    *ngFor="let programme of programmes; let i = index"
+    [id]="programme._id"
+    class="programme"
+    #listEl
+    (click)="dropdown(listEl, prog)"
+  >
+    <div class="programme-title">
+      <h1>
+        {{ programme.title }}
+      </h1>
+      <div class="edit-cover">
+        <div class="edit-form__main-cover">
+          <form
+            [ngClass]="{
+              'edit-title__form': true,
+              'ng-valid': !error,
+              'ng-invalid ng-touched': error
+            }"
+            autocomplete="off"
+            #editProgForm="ngForm"
+            (ngSubmit)="onEditProg(editProgForm, i)"
+          >
+            <input
+              (click)="$event.stopImmediatePropagation()"
+              class="edit-title__input edit-prog__title"
+              type="text"
+              [ngModel]="programme.title"
+              name="edittedProg"
+              required
+            />
+            <button
+              [disabled]="!editProgForm.valid"
+              (click)="$event.stopImmediatePropagation()"
+              *ngIf="!progIsLoading"
+              class="edit-title__btn"
+            >
+              Edit
+            </button>
+          </form>
+          <span *ngIf="!editProgForm.valid || error" class="help-block"
+            >Invalid programme title!</span
+          >
+        </div>
+        <button
+          *ngIf="!progIsLoading"
+          class="close-edit__title"
+          (click)="closeEditProg(listEl)"
+        >
+          &times;
+        </button>
+        <div *ngIf="progIsLoading" class="lds-ring loader">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+    <div class="course-cover">
+      <details #detail [style]="i == 0 ? 'display: block;' : null">
+        <summary>
+          <svg
+            x="0"
+            y="0"
+            viewBox="0 0 32 32"
+            style="enable-background: new 0 0 512 512"
+            xml:space="preserve"
+            class=""
+          >
+            <g>
+              <g xmlns="http://www.w3.org/2000/svg" id="options">
+                <path
+                  d="m13 8c0-1.654 1.346-3 3-3s3 1.346 3 3-1.346 3-3 3-3-1.346-3-3zm3 5c-1.654 0-3 1.346-3 3s1.346 3 3 3 3-1.346 3-3-1.346-3-3-3zm0 8c-1.654 0-3 1.346-3 3s1.346 3 3 3 3-1.346 3-3-1.346-3-3-3z"
+                  fill="#215c21"
+                  data-original="#000000"
+                ></path>
+              </g>
+            </g>
+          </svg>
+        </summary>
+        <div
+          (click)="closeDetails(detail)"
+          (touchstart)="closeDetails(detail)"
+          class="backdrop"
+        ></div>
+        <ul>
+          <li
+            style="font-size: 2rem; padding: 0 0.5rem"
+            (click)="closeDetails(detail)"
+          >
+            &times;
+          </li>
+          <li
+            routerLink="/create-record"
+            [queryParams]="{ session: sessionId, programme: programme._id }"
+          >
+            Add Course
+          </li>
+          <li
+            routerLink="/create-record"
+            [queryParams]="{ session: sessionId }"
+          >
+            Add Programme
+          </li>
+          <li (click)="startEditCourse(listEl, $event)">Edit courses name</li>
+          <li (click)="startEditProg(listEl, $event)">Edit programme name</li>
+          <li (click)="startDeleteCourse(listEl, $event)">Delete Courses</li>
+          <li (click)="deleteProg(programme._id, detail)">Delete Programme</li>
+        </ul>
+      </details>
+      <ul class="courses" [style]="i == 0 ? 'display: block;' : null">
+        <li
+          *ngFor="let course of sort(programme.courses)"
+          (click)="courseAction(courseEl, programme._id, course._id)"
+          class="course"
+          #courseEl
+        >
+          <div *ngIf="courseEdit || courseDelete" class="edit-course__cover">
+            <div #check class="check-box"></div>
+            <input
+              *ngIf="!courseDelete"
+              [id]="course._id"
+              (click)="$event.stopImmediatePropagation()"
+              (keydown)="$event.keyCode == 13 ? onEditCourse(listEl) : null"
+              [style]="
+                !!courseEditError ? 'border-color: rgb(119, 0, 0);' : null
+              "
+              class="edit-title__input course-edit"
+              type="text"
+              name="edittedCourse"
+              max="40"
+              min="1"
+              [ngModel]="course.title"
+              required
+              autocomplete="off"
+            />
+            <div
+              *ngIf="courseIsLoading && check.className.includes('checked')"
+              class="lds-ring loader"
+            >
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+          </div>
+          <span class="course-title">
+            {{ course.title }}
+          </span>
+        </li>
+        <span *ngIf="courseEditError" class="help-block">{{
+          courseEditError
+        }}</span>
+        <div class="edit-btn__cover" *ngIf="courseEdit">
+          <button
+            (click)="closeEditCourse(listEl)"
+            class="edit-course__btn cancel"
+          >
+            Cancel
+          </button>
+          <button class="edit-course__btn" (click)="onEditCourse(listEl)">
+            Edit All
+          </button>
+        </div>
+        <div class="edit-btn__cover" *ngIf="courseDelete">
+          <button
+            (click)="closeEditCourse(listEl)"
+            class="edit-course__btn cancel"
+          >
+            Cancel
+          </button>
+          <button
+            class="edit-course__btn delete"
+            (click)="onEditCourse(listEl)"
+          >
+            Delete
+          </button>
+        </div>
+      </ul>
+    </div>
+  </li>
+</ul>

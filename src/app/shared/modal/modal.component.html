@@ -1,0 +1,11 @@
+<div class="backdrop" (click)="cancel()">
+  <div class="modal-cover">
+    <p class="modal-msg">
+      {{ message || 'Are you sure you want to proceed?' }}
+    </p>
+    <div class="btn-cover">
+      <button (click)="cancel()" class="cancel">Cancel</button>
+      <button (click)="proceed()" class="proceed">Proceed</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,73 @@
+<header><h1>Select Your Location!</h1></header>
+
+<main>
+  <div #map id="map">
+    <p *ngIf="!isLoading">
+      You haven't taken any action yet! Click Auto locate
+      <span *ngIf="!student"> or enter address to see yourself!</span>
+    </p>
+
+    <div *ngIf="isLoading" class="lds-ellipsis loader">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
+
+  <p class="error-box" *ngIf="error">{{ error }}</p>
+
+  <button *ngIf="!success" (click)="autoLocate()" id="locate-btn">
+    Auto Locate
+  </button>
+
+  <p *ngIf="!success && !student">or</p>
+
+  <form
+    #form="ngForm"
+    *ngIf="!success && !student"
+    (ngSubmit)="findAddressHandler(address)"
+  >
+    <div class="form-input__cover">
+      <input
+        (input)="onAutoComplete(address)"
+        [ngClass]="{
+          'ng-valid': !error,
+          'ng-invalid ng-touched': error
+        }"
+        type="text"
+        name="address"
+        autocomplete="off"
+        #address
+        ngModel
+        required
+        placeholder="Enter a Location"
+        #input="ngModel"
+      />
+      <span class="help-block" *ngIf="!input.valid && input.touched">{{
+        error
+      }}</span>
+    </div>
+    <button class="address-btn" [disabled]="!form.valid" type="submit">
+      Find!
+    </button>
+  </form>
+
+  <form #proceedForm="ngForm" *ngIf="success" (ngSubmit)="onSubmit()">
+    <div class="form-input__cover">
+      <label for="latlng">Okay with this location?</label>
+    </div>
+
+    <div *ngIf="!isLoading2" class="button-cover">
+      <button type="button" class="failed" (click)="tryAgain()">
+        Try Again!</button
+      ><button type="submit">Proceed</button>
+    </div>
+    <div *ngIf="isLoading2" class="lds-ellipsis loader">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </form>
+</main>

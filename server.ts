@@ -1,0 +1,92 @@
+import { environment } from './src/environments/environment';
+import { APP_BASE_HREF } from '@angular/common';
+import { ngExpressEngine } from '@nguniversal/express-engine';
+import * as express from 'express';
+import { existsSync } from 'fs';
+import { join } from 'path';
+import 'zone.js/dist/zone-node';
+import { AppServerModule } from './src/main.server';
+
+// The Express app is exported so that it can be used by serverless Functions.
+export function app(): express.Express {
+  const server = express();
+  const distFolder = join(process.cwd(), 'dist/yct-biometric-auth/browser');
+  const indexHtml = existsSync(join(distFolder, 'index.original.html'))
+    ? 'index.original.html'
+    : 'index';
+
+  // Our Universal express-engine (found @ https://github.com/angular/universal/tree/master/modules/express-engine)
+  server.engine(
+    'html',
+    ngExpressEngine({
+      bootstrap: AppServerModule,
+    }),
+  );
+
+  server.set('view engine', 'html');
+  server.set('views', distFolder);
+
+  server.use((req, res, next) => {
+    if (req.header('x-forwarded-proto') !== 'https') {
+      res.redirect(`https://${req.header('host')}${req.url}`)
+    } else {
+      next();
+    }
+  });
+
+  // Example Express Rest API endpoints
+  // server.get('/api/**', (req, res) => { });
+  // Serve static files from /browser
+  server.get(
+    '*.*',
+    express.static(distFolder, {
+      maxAge: '1y',
+    }),
+  );
+
+  // server.get('/sessions', (req, res, next) => {
+  //   if (true) {
+  //     res.redirect('/login');
+  //     return;
+  //   }
+  //   next();
+  // });
+
+  // All regular routes use the Universal engine
+  server.get('*', (req, res) => {
+    // if (!req.url.includes('https') && environment.production) {
+    //   res.redirect('https://yct-attendance-collator.herokuapp.com');
+    //   return;
+    // }
+
+    res.render(indexHtml, {
+      req,
+      providers: [{ provide: APP_BASE_HREF, useValue: req.baseUrl }],
+    });
+  });
+
+  return server;
+}
+
+function run(): void {
+  const port = process.env['PORT'] || 4000;
+  const server = app();
+
+  server.listen(port, () => {
+    console.log(`Node Express server listening on http://localhost:${port}`);
+  });
+
+  // Start up the Node server
+}
+
+// Webpack will replace 'require' with '__webpack_require__'
+// '__non_webpack_require__' is a proxy to Node 'require'
+// The below code is to ensure that the server is run only when not requiring the bundle.
+declare const __non_webpack_require__: NodeRequire;
+const mainModule = __non_webpack_require__.main;
+const moduleFilename = (mainModule && mainModule.filename) || '';
+if (moduleFilename === __filename || moduleFilename.includes('iisnode')) {
+  run();
+}
+
+export * from './src/main.server';

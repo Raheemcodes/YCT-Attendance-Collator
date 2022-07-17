@@ -1,0 +1,16 @@
+<h1>Acamedic Sessions</h1>
+
+<p *ngIf="sessions.length == 0">
+  You haven't created a session for attendance.
+  <a routerLink="/create-record">Click here!</a> to do so
+</p>
+
+<ul class="sessions" *ngIf="sessions.length > 0">
+  <li
+    *ngFor="let session of sessions; let i = index"
+    class="session"
+    routerLink="/programmes/{{ session._id }}"
+  >
+    Year {{ session.title }} {{ i == 0 ? '(current session)' : '' }}
+  </li>
+</ul>

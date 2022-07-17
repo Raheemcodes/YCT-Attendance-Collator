@@ -1,0 +1,40 @@
+.expired {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+
+  p {
+    font-size: 1.2rem;
+    font-weight: bold;
+    width: 90%;
+
+    @media (min-width: 48rem) {
+      width: auto;
+    }
+  }
+
+  svg {
+    width: 50%;
+    max-width: 20rem;
+  }
+}
+
+@mixin display-flex() {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+
+.load-box {
+  @include display-flex();
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+}
+

@@ -1,0 +1,31 @@
+@mixin display-flex() {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+@mixin centered() {
+  @include display-flex();
+  justify-content: center;
+  align-items: center;
+}
+
+.loadbox {
+  @include centered();
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 50, 0, 0.5);
+  z-index: 15;
+
+  .loader-container {
+    @include centered();
+    width: 10rem;
+    height: 7rem;
+    background-color: #f5f5f5;
+    border-radius: 10px;
+  }
+}

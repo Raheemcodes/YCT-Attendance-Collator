@@ -1,0 +1,185 @@
+<div *ngIf="!mappingTime" class="create-attendance">
+  <h1>Select Course!</h1>
+
+  <p *ngIf="error && !isLoading" class="error-box">{{ error }}</p>
+
+  <p class="redirect" *ngIf="sessions.length == 0">
+    You haven't created a session for attendance.
+    <a routerLink="/create-record">Click here!</a> to do so
+  </p>
+
+  <form
+    *ngIf="sessions.length > 0"
+    class="form-control"
+    #attendanceForm="ngForm"
+    (submit)="onSubmit()"
+  >
+    <div class="form-input__cover">
+      <label class="display-input" for="session">
+        <div>1</div>
+        Enter Session</label
+      >
+      <input
+        [ngClass]="{
+          'form-input': true,
+          'ng-valid': !error,
+          'ng-invalid ng-touched': error
+        }"
+        type="text"
+        name="session"
+        placeholder="e.g 2021/2022 or 2021"
+        [(ngModel)]="sessionTitle"
+        required
+        #session="ngModel"
+        minlength="1"
+        matInput
+        [matAutocomplete]="auto"
+        (input)="autoFilter(session)"
+      />
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option
+          *ngFor="let sess of sessions; let idx = index"
+          [value]="sess.title"
+          >{{ sess.title }}</mat-option
+        >
+      </mat-autocomplete>
+      <span class="help-block" *ngIf="!session.valid && session.touched"
+        >Already existing session required</span
+      >
+    </div>
+    <div class="form-input__cover">
+      <label for="programme"
+        ><div>2</div>
+        Enter Programme</label
+      >
+      <input
+        [ngClass]="{
+          'form-input': true,
+          'ng-valid': !error,
+          'ng-invalid ng-touched': error
+        }"
+        type="text"
+        name="programme"
+        placeholder="e.g ND1 or Level-100"
+        [(ngModel)]="programmeTitle"
+        required
+        #programme="ngModel"
+        minlength="1"
+        matInput
+        [matAutocomplete]="progAuto"
+        (input)="autoFilterProg(programme)"
+        (focus)="autoFilterProg(programme)"
+      />
+      <mat-autocomplete #progAuto="matAutocomplete">
+        <mat-option
+          *ngFor="let prod of programmes; let idx = index"
+          [value]="prod.title"
+          >{{ prod.title }}</mat-option
+        >
+      </mat-autocomplete>
+      <span class="help-block" *ngIf="!programme.valid && programme.touched"
+        >Already existing programme required</span
+      >
+    </div>
+    <div class="form-input__cover">
+      <label for="course"
+        ><div>3</div>
+        Enter First Course</label
+      >
+      <input
+        [ngClass]="{
+          'form-input': true,
+          'ng-valid': !error,
+          'ng-invalid ng-touched': error
+        }"
+        type="text"
+        name="course"
+        placeholder="eg. COM121"
+        [(ngModel)]="courseTitle"
+        required
+        #course="ngModel"
+        minlength="1"
+        matInput
+        [matAutocomplete]="courseAuto"
+        (input)="autoFilterCourse(course)"
+        (focus)="autoFilterCourse(course)"
+      />
+      <mat-autocomplete #courseAuto="matAutocomplete">
+        <mat-option
+          *ngFor="let filteredCourse of courses; let idx = index"
+          [value]="filteredCourse.title"
+          >{{ filteredCourse.title }}</mat-option
+        >
+      </mat-autocomplete>
+
+      <span class="help-block" *ngIf="!course.valid && course.touched"
+        >Already existing Course is required!</span
+      >
+    </div>
+    <div class="form-input__cover">
+      <label for="time"
+        ><div>4</div>
+        Enter Time Limit [ hours: minutes ]
+      </label>
+      <div class="matric-cover">
+        <input
+          [ngClass]="{
+            'form-input': true,
+            'matric-input': true,
+            'ng-valid': !error,
+            'ng-invalid ng-touched': error
+          }"
+          type="number"
+          name="hours"
+          placeholder="e.g 1"
+          [(ngModel)]="hour"
+          required
+          #hours="ngModel"
+          min="0"
+          max="12"
+        />
+        :
+        <input
+          [ngClass]="{
+            'form-input': true,
+            'matric-input': true,
+            'ng-valid': !error,
+            'ng-invalid ng-touched': error
+          }"
+          type="number"
+          name="minutes"
+          placeholder="e.g 30"
+          [(ngModel)]="minute"
+          required
+          #minutes="ngModel"
+          min="0"
+          max="60"
+        />
+      </div>
+
+      <span
+        class="help-block"
+        *ngIf="
+          (!hours.valid && hours.touched) || (!minutes.valid && minutes.touched)
+        "
+        >Enter matric Number</span
+      >
+    </div>
+    <button
+      *ngIf="!isLoading"
+      type="submit"
+      class="form-btn create"
+      [disabled]="!attendanceForm.valid"
+    >
+      create
+    </button>
+    <div *ngIf="isLoading" class="lds-ellipsis loader">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </form>
+</div>
+
+<app-map (coordinateGenerated)="finalize($event)" *ngIf="mappingTime"></app-map>

@@ -1,0 +1,114 @@
+<div *ngIf="isLoading" class="lds-ellipsis loader">
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+</div>
+
+<p *ngIf="totalRecord == 0">
+  You haven't recorded any attendance.
+  <a routerLink="/mark-attendance">Click here!</a> to do so
+</p>
+
+<h1 *ngIf="totalRecord > 0 && !isLoading">Aggregate Result</h1>
+
+<details *ngIf="totalRecord > 0 && !isLoading">
+  <summary class="filter-btn">
+    <svg x="0" y="0" viewBox="0 0 189.524 189.524" xml:space="preserve">
+      <g>
+        <g xmlns="http://www.w3.org/2000/svg">
+          <g>
+            <path
+              clip-rule="evenodd"
+              d="m56.26 52.119c-2.104 8.174-9.524 14.214-18.355 14.214-10.467 0-18.952-8.485-18.952-18.952s8.485-18.952 18.952-18.952c8.831 0 16.251 6.04 18.355 14.214h128.526c2.616 0 4.738 2.121 4.738 4.738s-2.122 4.738-4.738 4.738zm-8.879-4.738c0 5.234-4.243 9.476-9.476 9.476s-9.476-4.243-9.476-9.476 4.243-9.476 9.476-9.476 9.476 4.242 9.476 9.476z"
+              fill-rule="evenodd"
+              fill="#256325"
+              data-original="#000000"
+              class=""
+            ></path>
+          </g>
+          <g>
+            <path
+              d="m4.738 52.119h14.811c-.39-1.514-.597-3.102-.597-4.738s.207-3.224.597-4.738h-14.811c-2.617 0-4.738 2.121-4.738 4.738s2.121 4.738 4.738 4.738z"
+              fill="#256325"
+              data-original="#000000"
+              class=""
+            ></path>
+          </g>
+          <g>
+            <path
+              clip-rule="evenodd"
+              d="m113.117 137.405c-2.104-8.174-9.525-14.214-18.355-14.214s-16.252 6.04-18.355 14.214h-71.669c-2.617 0-4.738 2.122-4.738 4.738s2.121 4.738 4.738 4.738h71.668c2.104 8.174 9.525 14.214 18.355 14.214s16.252-6.04 18.355-14.214h71.668c2.616 0 4.738-2.122 4.738-4.738s-2.122-4.738-4.738-4.738zm-18.355 14.214c5.234 0 9.476-4.242 9.476-9.476s-4.242-9.476-9.476-9.476-9.476 4.242-9.476 9.476 4.242 9.476 9.476 9.476z"
+              fill-rule="evenodd"
+              fill="#256325"
+              data-original="#000000"
+              class=""
+            ></path>
+          </g>
+          <g>
+            <path
+              clip-rule="evenodd"
+              d="m169.974 90.024c-2.104-8.174-9.525-14.214-18.355-14.214s-16.252 6.04-18.355 14.214h-128.526c-2.617 0-4.738 2.122-4.738 4.738s2.121 4.738 4.738 4.738h128.526c2.104 8.174 9.525 14.214 18.355 14.214s16.252-6.04 18.355-14.214h14.811c2.616 0 4.738-2.122 4.738-4.738s-2.122-4.738-4.738-4.738zm-18.355 14.214c5.234 0 9.476-4.242 9.476-9.476s-4.243-9.476-9.476-9.476c-5.234 0-9.476 4.242-9.476 9.476s4.242 9.476 9.476 9.476z"
+              fill-rule="evenodd"
+              fill="#256325"
+              data-original="#000000"
+              class=""
+            ></path>
+          </g>
+        </g>
+      </g>
+    </svg>
+  </summary>
+
+  <div class="form-cover">
+    <label for="totalScore">Total Score :</label>
+    <input
+      class="form-input"
+      type="number"
+      name="totalScore"
+      [(ngModel)]="score"
+    />
+  </div>
+  <div class="form-cover">
+    <label for="totalScore">Filter :</label>
+    <span class="input-cover">
+      <input
+        class="form-input"
+        type="number"
+        name="totalScore"
+        value="0"
+        min="0"
+        max="100"
+        [(ngModel)]="filterer"
+        (input)="filter()"
+      />%
+    </span>
+  </div>
+  <div class="form-cover">
+    <div class="link-cover search-box">
+      <input
+        class="form-input"
+        type="search"
+        #search
+        (input)="onSearch(search)"
+        placeholder="Enter Matric Number"
+      />
+    </div>
+  </div>
+</details>
+
+<h2 *ngIf="totalRecord > 0 && !isLoading">
+  <span class="number-title">S/N</span>
+  <span class="matric-title">Matric Number</span>
+  <span class="status-title">Score</span>
+</h2>
+
+<ul *ngIf="totalRecord > 0 && !isLoading" class="records" #list>
+  <li *ngFor="let attendanceLine of attendance; let i = index" class="record">
+    <div class="number">{{ i + 1 }}.</div>
+    <div class="matric-number">{{ attendanceLine.matricNumber }}</div>
+    <div class="status">
+      {{ roundUp((attendanceLine.timesPresent / totalRecord) * score) }}
+    </div>
+  </li>
+</ul>

@@ -1,0 +1,112 @@
+.details-cover {
+  padding: 5rem 2rem;
+
+  @media (min-width: 48rem) {
+    padding: 1rem 2rem;
+  }
+
+  h1 {
+    color: rgb(56, 53, 53);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    font-size: 1.5rem;
+  }
+
+  p {
+    font-size: 1rem;
+    font-family: 'Montserrat', sans-serif;
+  }
+}
+
+.details-form__container {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+  max-width: 25rem;
+
+  .help-block {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1rem;
+    color: red;
+    margin-top: 0.5rem;
+  }
+}
+
+.details-form {
+  margin: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  width: 100%;
+}
+
+.details-form__input {
+  display: flex;
+  flex-direction: column;
+  margin: 0.5rem;
+  width: 100%;
+
+  label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: rgb(70, 70, 70);
+    margin-bottom: 0.5rem;
+  }
+
+  input {
+    width: 100%;
+    height: 2.5rem;
+    padding: 0.5rem 1rem;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.2rem;
+    border: 2px Solid #238d23;
+    color: rgb(70, 70, 70);
+    font-weight: 500;
+    // background-color: #2563251a;
+
+    &:hover,
+    &:active,
+    &:focus {
+      border: 3px Solid #256325;
+      font-weight: bold;
+    }
+  }
+
+  input.ng-invalid.ng-touched,
+  input:-webkit-autofill.ng-invalid.ng-touched {
+    color: red;
+    background-color: #257925;
+    border-color: red;
+    -webkit-text-fill-color: red;
+
+    &:hover,
+    &:active,
+    &:focus {
+      border-color: red;
+      font-weight: bold;
+      color: red;
+    }
+  }
+}
+
+button {
+  border: none;
+  background-color: #256325;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.8rem;
+  color: #fff;
+  padding: 0.7rem;
+  font-weight: bold;
+  margin: 1rem 0.5rem;
+  align-self: flex-end;
+  min-width: 8rem;
+  cursor: pointer;
+
+  &:disabled,
+  &[disabled] {
+    background-color: rgba(255, 102, 204, 0.6);
+    cursor: not-allowed;
+  }
+}

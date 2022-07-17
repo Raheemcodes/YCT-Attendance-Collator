@@ -1,0 +1,14 @@
+<app-header *ngIf="loaded"></app-header>
+
+<div *ngIf="!loaded" class="load-container">
+  <div class="lds-ellipsis">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+</div>
+
+<div class="routes" *ngIf="loadComponent">
+  <router-outlet> </router-outlet>
+</div>

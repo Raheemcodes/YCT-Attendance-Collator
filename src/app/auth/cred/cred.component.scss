@@ -1,0 +1,88 @@
+@mixin display-flex() {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.cred-main__container {
+  @include display-flex();
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 51, 0, 0.5);
+  z-index: 15;
+
+  .cred-box {
+    @include display-flex();
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #f5f5f5;
+    width: 95%;
+    max-width: 30rem;
+    border-radius: 10px;
+    padding: 1rem;
+
+    .title {
+      font-size: 1.5rem;
+      color: #003200;
+    }
+
+    .btn {
+      @include display-flex();
+      justify-content: center;
+      align-items: center;
+      background-color: #107410;
+      border: none;
+      color: #f5f5f5;
+      font-size: 1.2rem;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+
+      .cred-trigger {
+        width: 2rem;
+        margin-right: 0.5rem;
+      }
+
+      &:active {
+        transform: scale(1.05);
+      }
+
+      @media (min-width: 64rem) {
+        &:hover {
+          transform: scale(1.05);
+        }
+      }
+    }
+
+    .cred-success__box {
+      width: 4rem;
+    }
+
+    .info {
+      text-align: justify;
+      width: 95%;
+    }
+
+    .optional {
+      text-decoration: underline;
+      cursor: pointer;
+
+      &:active {
+        font-weight: bold;
+      }
+
+      @media (min-width: 64rem) {
+        &:hover {
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}

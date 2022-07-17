@@ -1,0 +1,134 @@
+@mixin display-flex() {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+h1 {
+  margin-bottom: 0;
+}
+
+p {
+  font-size: 1.2rem;
+  margin: 8rem 1rem;
+  font-weight: 500;
+  text-align: justify;
+
+  a {
+    color: #215c21;
+    text-decoration: underline;
+    font-weight: bold;
+  }
+}
+
+details {
+  width: 95%;
+
+  summary {
+    float: right;
+    margin-right: 0;
+    width: 3rem;
+    padding: 0.5rem;
+    align-self: flex-end;
+    list-style: none;
+
+    &:focus {
+      a {
+        font-weight: 700;
+      }
+    }
+
+    &::marker,
+    &::-webkit-details-marker {
+      display: none;
+    }
+
+    svg {
+      width: 100%;
+    }
+  }
+
+  @media (min-width: 64rem) {
+    width: 70%;
+  }
+}
+
+.form-cover {
+  margin: 0.5rem 1rem;
+  width: 95%;
+  @include display-flex();
+  justify-content: flex-end;
+  align-items: center;
+
+  @media (min-width: 64rem) {
+    width: 70%;
+  }
+
+  label {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    font-size: 1.5rem;
+  }
+}
+
+.link-cover {
+  width: 95%;
+  max-width: 30rem;
+}
+
+.input-cover {
+  margin: 0.5rem;
+  width: 5.5rem;
+  font-size: 1.2rem;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
+  height: 2.5rem;
+  border: 2px Solid #257925;
+  background-color: #2563251a;
+
+  .form-input {
+    margin: 0;
+    border: none;
+    padding: 0.5rem;
+    width: 3.5rem;
+    background-color: transparent;
+
+    @media (min-width: 48rem) {
+      width: 5rem;
+    }
+  }
+
+  @media (min-width: 48rem) {
+    width: 7rem;
+  }
+}
+
+.form-input {
+  width: 5rem;
+  height: 2.5rem;
+  padding: 0.5rem;
+  margin: 0.5rem;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.2rem;
+  color: #256325;
+  -webkit-text-fill-color: #256325;
+  border: 2px Solid #257925;
+  background-color: #2563251a;
+
+
+  &:hover,
+  &:active,
+  &:focus {
+    border: 3px Solid #256325;
+    font-weight: bold;
+    color: #256325;
+    &::placeholder {
+      color: #256325;
+    }
+  }
+
+  &::placeholder {
+    color: #256325;
+  }
+}

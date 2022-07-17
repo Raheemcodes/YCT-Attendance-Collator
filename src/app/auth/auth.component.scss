@@ -1,0 +1,323 @@
+@mixin display-flex() {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.main-auth__cover {
+  position: relative;
+  width: 100vw;
+  @include display-flex();
+  justify-content: center;
+  z-index: 13;
+  background-color: #f5f5f5;
+
+  .auth-illustration {
+    display: none;
+    width: 50%;
+
+    @media (min-width: 64rem) {
+      display: block;
+    }
+
+    @media (min-width: 90rem) {
+      width: 40%;
+    }
+  }
+}
+
+.auth-cover {
+  z-index: 2;
+  @include display-flex();
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  min-height: 100vh;
+  background-color: #f5f5f5;
+
+  @media (min-width: 64rem) {
+    width: 50%;
+  }
+
+  @media (min-width: 90rem) {
+    width: 30%;
+  }
+
+  .error-box {
+    padding: 0;
+    margin: 0.5rem;
+    font-family: 'Montserrat', sans-serif;
+    color: red;
+  }
+
+  .back-button__cover {
+    width: 90%;
+  }
+
+  .welcome-msg {
+    @include display-flex();
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    color: #294b29;
+
+    svg {
+      width: 2rem;
+      margin: 0 1rem;
+      fill: #294b29;
+    }
+  }
+
+  .back-button {
+    margin: 0;
+    padding: 0;
+    width: 2rem;
+    height: 2rem;
+    display: block;
+  }
+
+  .help-block {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1rem;
+    color: red;
+    margin-top: 0.5rem;
+  }
+
+  .image-preview {
+    width: 6rem;
+    height: 6rem;
+  }
+}
+.form-cover h1 {
+  font-size: 2rem;
+  color: #256325;
+}
+
+.form-control {
+  @include display-flex();
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+
+  .form-input__cover {
+    width: 95%;
+    padding: 0;
+    margin: 1rem;
+  }
+
+  button {
+    border: none;
+    border-radius: 50px;
+    background-color: #256325;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 0.8rem;
+    color: #fff;
+    padding: 0.7rem;
+    font-weight: bold;
+    margin: 0;
+    align-self: flex-end;
+    min-width: 8rem;
+    cursor: pointer;
+
+    &:disabled,
+    &[disabled] {
+      background-color: rgba(37, 99, 37, 0.6);
+      cursor: not-allowed;
+    }
+  }
+
+  .google-login__btn {
+    border: 2px solid #256325;
+    padding: 0.3rem 1rem;
+    border-radius: 10px;
+    padding: 0;
+    margin: 1rem 0 0 0;
+    overflow: hidden;
+    @include display-flex();
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+
+    div {
+      background-color: #fff;
+      width: 3rem;
+      height: 3rem;
+      @include display-flex();
+      justify-content: center;
+      align-items: center;
+    }
+
+    svg {
+      width: 1.3rem;
+      height: 1.3rem;
+    }
+
+    span {
+      background-color: #256325;
+      font-size: 1rem;
+      font-family: 'Montserrat' sans-serif;
+      height: 3rem;
+      color: #fff;
+      @include display-flex();
+      justify-content: center;
+      align-items: center;
+      padding: 0 0.5rem;
+    }
+  }
+}
+
+.form-input {
+  width: 100%;
+  height: 3rem;
+  padding: 0.5rem;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.2rem;
+  color: #256325;
+  -webkit-text-fill-color: #256325;
+  border: 2px Solid #257925;
+  border-radius: 10px;
+  background-color: #2563251a;
+
+  &:hover,
+  &:active,
+  &:focus {
+    border: 3px Solid #256325;
+    font-weight: bold;
+    color: #256325;
+    &::placeholder {
+      color: #256325;
+    }
+  }
+
+  &::placeholder {
+    color: #256325;
+  }
+}
+
+.biometric-cover {
+  width: 100%;
+  @include display-flex();
+  justify-content: center;
+  align-items: center;
+
+  input {
+    width: 85%;
+  }
+
+  .biometric-trigger__cover {
+    width: 3rem;
+    height: 3rem;
+    padding: 0.2rem;
+    border-radius: 10px;
+    margin-left: 1rem;
+    background-color: #256325;
+
+    .biometric-trigger {
+      width: 100%;
+    }
+  }
+}
+
+input.ng-invalid.ng-touched,
+input.ng-invalid.ng-touched,
+textarea.ng-invalid.ng-touched,
+input:-webkit-autofill.ng-invalid.ng-touched {
+  color: red;
+  background-color: rgba(255, 207, 207, 0.5);
+  border-color: red;
+  -webkit-text-fill-color: red;
+
+  &:hover,
+  &:active,
+  &:focus {
+    border-color: red;
+    font-weight: bold;
+    color: red;
+    &::placeholder {
+      color: red;
+    }
+  }
+
+  &::placeholder {
+    color: red;
+  }
+}
+
+textarea {
+  height: 10rem;
+}
+
+p {
+  color: rgba(51, 47, 47, 0.672);
+  font-weight: bold;
+}
+p a {
+  color: #256325;
+}
+
+.auth-title__box {
+  @include display-flex();
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+
+  .auth-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    width: 50%;
+    text-align: center;
+    color: rgb(89, 85, 85);
+    margin-bottom: 0.5rem;
+    font-family: 'Montserrat', sans-serif;
+    cursor: pointer;
+  }
+
+  .active {
+    color: #294b29;
+  }
+}
+
+.auth-highlight {
+  width: 90%;
+  margin-bottom: 2rem;
+
+  hr {
+    border: 2.5px solid #294b29;
+    border-radius: 5px;
+    width: 50%;
+    margin: 0;
+    -webkit-transition: transform 0.5s linear;
+    -moz-transition: transform 0.5s linear;
+    -o-transition: transform 0.5s linear;
+    transition: transform 0.5s linear;
+  }
+}
+
+.form-container__box {
+  padding-top: 2rem;
+  width: 90%;
+  max-width: 30rem;
+  overflow-x: hidden;
+
+  @media (min-width: 48rem) {
+    padding-top: 5rem;
+  }
+}
+
+.form-container {
+  @include display-flex();
+  justify-content: center;
+  align-items: flex-start;
+  width: 200%;
+  -webkit-transition: transform 0.5s linear;
+  -moz-transition: transform 0.5s linear;
+  -o-transition: transform 0.5s linear;
+  transition: transform 0.5s linear;
+}
+
+.loader {
+  align-self: flex-end;
+}

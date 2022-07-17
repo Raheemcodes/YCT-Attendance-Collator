@@ -1,0 +1,312 @@
+@mixin transition {
+  -webkit-transition: transform 0.3s linear;
+  -webkit-transition: -webkit-transform 0.3s linear;
+  -moz-transition: transform 0.3s linear;
+  -o-transition: transform 0.3s linear;
+  transition: transform 0.3s linear;
+  transition: -webkit-transform 0.3s linear;
+}
+
+@mixin display-flex() {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+h1 {
+  padding: 0;
+  padding-top: 3rem;
+  font-size: 1.8rem;
+
+  @media (min-width: 48rem) {
+    padding-top: 5rem;
+  }
+}
+
+.backdrop {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  z-index: 2;
+  top: 0;
+  right: 0;
+}
+
+.loader div {
+  border-color: #006400 transparent transparent transparent;
+}
+
+h2 {
+  font-size: 1.2rem;
+  font-weight: normal;
+  margin: 1rem;
+  text-align: justify;
+
+  a {
+    color: #215c21;
+    text-decoration: underline;
+    font-weight: bold;
+  }
+}
+
+.programmes {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-weight: bold;
+  width: 95vw;
+
+  @media (min-width: 64rem) {
+    width: 70vw;
+    padding-top: 5rem;
+  }
+
+  .edit-cover {
+    display: none;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .edit-form__main-cover {
+    @include display-flex();
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  .help-block {
+    font-size: 0.8rem;
+    color: rgb(119, 0, 0);
+    font-weight: normal;
+    font-family: 'Montserrat', sans-serif;
+    margin: 0 0.5rem;
+  }
+
+  .edit-title__form {
+    border: 2px solid #006400;
+    background-color: #006400;
+    overflow: hidden;
+    margin: 0.5rem;
+    @include display-flex();
+
+    .edit-prog__title {
+      border: none;
+      margin: 0;
+      width: 7rem;
+    }
+
+    &.ng-invalid {
+      background-color: rgba(255, 207, 207, 0.5);
+      border-color: rgb(119, 0, 0);
+
+      button {
+        background-color: rgb(119, 0, 0);
+      }
+    }
+
+    button {
+      width: 3rem;
+      height: 2rem;
+      border: none;
+      background-color: #006400;
+      color: #f5f5f5;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.8rem;
+    }
+  }
+
+  .close-edit__title {
+    background-color: transparent;
+    border: none;
+    font-size: 2rem;
+    margin: 0.7rem;
+    color: #006400;
+  }
+
+  .edit-title__input {
+    border: 2px solid #006400;
+    border-radius: 0;
+    width: 5rem;
+    height: 2rem;
+    background-color: #f5f5f5;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1rem;
+    font-weight: 550;
+    padding: 0.2rem;
+    margin: 0.5rem;
+  }
+
+  .programme {
+    overflow: hidden;
+    padding-left: 1rem;
+    background-color: #e6e6e6;
+
+    .programme-title {
+      @include display-flex();
+      justify-content: flex-start;
+      align-items: center;
+    }
+
+    h1 {
+      position: relative;
+      z-index: 1;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1rem;
+      font-weight: 550;
+      margin: 0;
+      padding: 0.5rem;
+    }
+
+    &:hover,
+    &:active {
+      border-left: 5px solid #006400;
+    }
+
+    &:nth-child(even) {
+      background-color: #00640035;
+    }
+  }
+
+  .course-cover {
+    width: 100%;
+    @include display-flex();
+
+    details {
+      display: none;
+      width: 2rem;
+
+      summary {
+        list-style: none;
+
+        width: 100%;
+
+        &::marker,
+        &::-webkit-details-marker {
+          display: none;
+        }
+
+        svg {
+          width: 100%;
+        }
+      }
+
+      ul {
+        z-index: 3;
+        padding: 0;
+        list-style: none;
+        position: absolute;
+        background-color: #006400;
+        color: #f5f5f5;
+        box-shadow: 2px 2px 7px #c0c0c0;
+        font-size: 1rem;
+        font-weight: 500;
+        font-family: 'Montserrat', sans-serif;
+        border-radius: 5px;
+
+        li {
+          border-top: 0.5px solid #c0c0c075;
+          padding: 0.5rem 1rem;
+          cursor: pointer;
+
+          &:first-child {
+            border-top: none;
+          }
+        }
+      }
+    }
+  }
+
+  .courses {
+    display: none;
+    list-style: none;
+    padding: 0;
+    width: 100%;
+
+    .edit-course__btn {
+      background-color: #006400;
+      border: none;
+      color: #f5f5f5;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1rem;
+      margin: 1rem 0.5rem;
+      align-items: flex-end;
+
+      &:hover {
+        background-color: #128512;
+      }
+      &:active {
+        transform: scale(1.1);
+      }
+    }
+
+    .cancel {
+      background-color: rgb(116, 116, 0);
+
+      &:hover {
+        background-color: rgb(171, 171, 19);
+      }
+    }
+
+    .delete {
+      background-color: rgb(119, 0, 0);
+
+      &:hover {
+        background-color: firebrick;
+      }
+    }
+
+    .course-edit {
+      display: none;
+    }
+
+    .course {
+      @include display-flex();
+      justify-content: flex-start;
+      align-items: center;
+      font-family: 'Montserrat', sans-serif;
+      padding: 0.3rem 0.5rem;
+      font-weight: 400;
+      background-color: #f5f5f5;
+
+      .edit-course__cover {
+        @include display-flex();
+        justify-content: flex-start;
+        align-items: center;
+      }
+
+      .check-box {
+        @include display-flex();
+        justify-content: center;
+        align-items: center;
+        border: 2px solid #215c21;
+        width: 1.5rem;
+        height: 1.5rem;
+        border-radius: 5px;
+        margin: 0.5rem 1rem;
+        background-color: #f5f5f5;
+      }
+
+      .checked {
+        background-color: #215c21;
+
+        &::after {
+          content: '\2713';
+          color: #f5f5f5;
+          font-weight: bold;
+        }
+      }
+
+      &:hover,
+      &:active {
+        border-left: 5px solid #006400;
+      }
+
+      &:nth-child(even) {
+        background-color: #00640035;
+      }
+    }
+  }
+}

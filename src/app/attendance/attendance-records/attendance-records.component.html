@@ -1,0 +1,42 @@
+<h1>{{ title }} Records</h1>
+
+<ul class="attendance-options">
+  <li
+    class="attendance-option"
+    routerLink="/aggregate/{{ sessionId }}/{{ progId }}/{{ courseId }}"
+  >
+    <div class="drop-down__btn"></div>
+    <h1>Aggregate Score</h1>
+  </li>
+  <li #rec class="attendance-option daily">
+    <div class="drop-down__btn">
+      <div class="dash minus"></div>
+      <div *ngIf="dailyRecords.length > 0" class="dash plus"></div>
+    </div>
+    <h1>Daily Record</h1>
+  </li>
+
+  <p *ngIf="dailyRecords.length == 0">
+    You haven't recorded any attendance.
+    <a routerLink="/mark-attendance">Click here!</a> to do so
+  </p>
+
+  <ul *ngIf="dailyRecords.length > 0" class="daily-records">
+    <li
+      *ngFor="let dailyRecord of dailyRecords; let i = index"
+      class="daily-record"
+    >
+      <div class="border-left">
+        <div class="within"></div>
+        <div class="circle"></div>
+      </div>
+      <p id="{{ dailyRecord._id }}" routerLink="{{ dailyRecord._id }}">
+        Day {{ i + 1 }} [{{
+          dailyRecord.date.replaceAll('/', '-').split(':')[0] +
+            ':' +
+            dailyRecord.date.replaceAll('/', '-').split(':')[1]
+        }}]
+      </p>
+    </li>
+  </ul>
+</ul>

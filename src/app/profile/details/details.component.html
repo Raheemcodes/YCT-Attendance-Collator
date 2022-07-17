@@ -1,0 +1,57 @@
+<div class="details-cover">
+  <h1>My Details</h1>
+  <p>You're free to make changes to the details provided below</p>
+
+  <div class="details-form__container">
+    <form class="details-form" #form="ngForm">
+      <div class="details-form__input">
+        <label for="email">E-Mail:</label>
+        <input
+          name="email"
+          type="text"
+          [ngModel]="email"
+          required
+          email
+          #detailEmail="ngModel"
+        />
+        <span
+          class="help-block"
+          *ngIf="!detailEmail.valid && detailEmail.touched"
+          >Please enter your valid first name!</span
+        >
+      </div>
+      <div class="details-form__input">
+        <label for="first-name">First Name:</label>
+        <input
+          name="first-name"
+          type="text"
+          [ngModel]="firstName"
+          required
+          #detailFirstName="ngModel"
+        />
+        <span
+          class="help-block"
+          *ngIf="!detailFirstName.valid && detailFirstName.touched"
+          >Please enter your first name!</span
+        >
+      </div>
+      <div class="details-form__input">
+        <label for="last-name">Last Name:</label>
+        <input
+          name="last-name"
+          [ngModel]="lastName"
+          required
+          #detailLastName="ngModel"
+          type="text"
+        />
+        <span
+          class="help-block"
+          *ngIf="!detailLastName.valid && detailLastName.touched"
+          >Please enter your last name!</span
+        >
+      </div>
+
+      <button type="button">Save Changes</button>
+    </form>
+  </div>
+</div>
