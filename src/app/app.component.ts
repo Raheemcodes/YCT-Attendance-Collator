@@ -28,6 +28,7 @@ export class AppComponent implements OnInit {
 
       if (
         location.pathname == '/' ||
+        location.pathname == '/not-found' ||
         location.pathname == '/login' ||
         location.pathname == '/signup' ||
         location.pathname.includes('attendance')
