@@ -50,6 +50,20 @@ export class AppComponent implements OnInit {
           document.body.removeAttribute('style');
           return;
         }
+        if (
+          location.pathname == '/' ||
+          location.pathname == '/not-found' ||
+          location.pathname == '/login' ||
+          location.pathname == '/signup' ||
+          location.pathname.includes('attendance')
+        ) {
+          setTimeout(() => {
+            if (document.body.hasAttribute('style')) {
+              document.body.removeAttribute('style');
+            }
+            this.loaded = true;
+          }, 3000);
+        }
       });
     }
   }
