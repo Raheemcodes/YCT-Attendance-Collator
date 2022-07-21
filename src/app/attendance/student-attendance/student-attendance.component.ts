@@ -100,9 +100,9 @@ export class StudentAttendanceComponent implements OnInit, OnDestroy {
       new Date(this.details.tokenResetExpiration).getTime() - Date.now(),
     );
 
+
     this.hours = time.getUTCHours();
     this.minutes = time.getUTCMinutes();
-
     this.clearTimeout = setInterval(() => {
       if (this.minutes == 0 && this.hours > 0) {
         this.hours--;

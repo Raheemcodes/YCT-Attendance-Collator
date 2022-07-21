@@ -91,7 +91,6 @@ export class AuthComponent implements OnInit, OnDestroy {
       (resData) => {
         this.isLoading = false;
         this.isBio = false;
-        console.log(resData);
         form.reset();
         this.router.navigate(['../'], { relativeTo: this.route });
       },
@@ -121,7 +120,6 @@ export class AuthComponent implements OnInit, OnDestroy {
         next: (resData) => {
           this.isLoading = false;
           this.isBio = false;
-          console.log(resData);
           form.reset();
           this.signedup = true;
         },
@@ -140,7 +138,6 @@ export class AuthComponent implements OnInit, OnDestroy {
 
     this.authService.googleAuth(idToken).subscribe(
       (resData) => {
-        console.log(resData);
         this.signedup = type;
         if (!type) this.router.navigate(['../'], { relativeTo: this.route });
       },

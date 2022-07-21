@@ -202,7 +202,6 @@ export class AuthService {
           return navigator.credentials.get({ publicKey: credentials });
         }),
         switchMap(async (resData: any) => {
-          // console.log(resData);
           const credential = await {
             id: resData.id,
             response: {

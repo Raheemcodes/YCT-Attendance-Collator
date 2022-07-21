@@ -21,7 +21,6 @@ export class AppComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log('NgONIT')
     if (isPlatformBrowser(this.platformId)) {
       this.authService.autoLogin();
       document.body.style.overflow = 'hidden';
