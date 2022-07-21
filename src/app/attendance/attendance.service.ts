@@ -34,7 +34,6 @@ export class AttendanceService {
   setSessions(sessions: Session[]) {
     this.sessions = sessions;
     this.sessionsChanged.next(this.sessions);
-    this.isLoading.next(true);
   }
 
   getSessions(): Session[] {
@@ -163,12 +162,13 @@ export class AttendanceService {
   fetchSessions() {
     this.isLoading.next(false);
     return this.http
-      .get<Session[]>(environment.restApiAddress + '/sessions')
-      .pipe(
-        map((resData: any) => {
-          return resData.sessions;
-        }),
-        tap((sessions) => {
+    .get<Session[]>(environment.restApiAddress + '/sessions')
+    .pipe(
+      map((resData: any) => {
+        return resData.sessions;
+      }),
+      tap((sessions) => {
+          this.isLoading.next(true);
           this.setSessions(sessions);
         }),
         catchError((err: HttpErrorResponse) => throwError(err)),

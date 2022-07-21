@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { AttendanceResolver } from './../attendance/attendance.resolver';
 import { AuthGuard } from './../auth/auth.guard';
 import { ProfileComponent } from './profile.component';
 
@@ -14,7 +13,6 @@ import { ProfileComponent } from './profile.component';
         path: '',
         component: ProfileComponent,
         canActivate: [AuthGuard],
-        resolve: [AttendanceResolver],
         children: [
           {
             path: 'details',

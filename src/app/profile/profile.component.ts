@@ -56,7 +56,6 @@ export class ProfileComponent implements OnInit {
       this.screenWidth = window.innerWidth;
     };
     this.authService.user.subscribe((user) => {
-      this.attendanceService.isLoading.next(!!user);
       this.user = user;
       if (!this.user) {
         this.router.navigate(['/']);

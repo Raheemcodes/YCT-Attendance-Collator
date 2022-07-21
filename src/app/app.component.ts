@@ -21,6 +21,7 @@ export class AppComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    console.log('NgONIT')
     if (isPlatformBrowser(this.platformId)) {
       this.authService.autoLogin();
       document.body.style.overflow = 'hidden';
@@ -28,6 +29,7 @@ export class AppComponent implements OnInit {
 
       if (
         location.pathname == '/' ||
+        location.pathname == '/profile' ||
         location.pathname == '/login' ||
         location.pathname == '/signup' ||
         location.pathname == '/not-found' ||
@@ -45,7 +47,7 @@ export class AppComponent implements OnInit {
 
         document.body.style.overflow = 'hidden';
 
-        if (this.loaded && document.body.hasAttribute('style')) {
+        if (!this.loaded && document.body.hasAttribute('style')) {
           document.body.removeAttribute('style');
           return;
         }
