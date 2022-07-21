@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from './auth/auth.guard';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { DetailsComponent } from './profile/details/details.component';
 
 const routes: Routes = [
   {
@@ -19,9 +17,23 @@ const routes: Routes = [
       import('./profile/profile.module').then((m) => m.ProfileModule),
   },
   {
+    path: 'aggregate-records',
+    loadChildren: () =>
+      import('./profile/aggregate-records/aggregate-records.module').then(
+        (m) => m.AggregateRecordsModule,
+      ),
+  },
+  {
     path: 'details',
-    component: DetailsComponent,
-    canActivate: [AuthGuard],
+    loadChildren: () =>
+      import('./profile/details/details.module').then(
+        (m) => m.DetailsModule,
+      ),
+  },
+  {
+    path: 'graph',
+    loadChildren: () =>
+      import('./profile/graph/graph.module').then((m) => m.GraphModule),
   },
   {
     path: 'sessions',
@@ -69,13 +81,13 @@ const routes: Routes = [
       import('./attendance/student-attendance/student-attendance.module').then(
         (m) => m.StudentAttendanceModule,
       ),
-    },
-    {
-      path: 'create-record',
-      loadChildren: () =>
-        import('./attendance/create-record/create-record.module').then(
-          (m) => m.CreateRecordModule,
-        ),
+  },
+  {
+    path: 'create-record',
+    loadChildren: () =>
+      import('./attendance/create-record/create-record.module').then(
+        (m) => m.CreateRecordModule,
+      ),
   },
   {
     path: 'not-found',

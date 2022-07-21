@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NgModel } from '@angular/forms';
+import { NgModel, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Course, Programme, Session } from 'src/app/shared/shared.model';
 import { Coordinates } from './../../map/map.component';
@@ -83,6 +83,15 @@ export class MarkAttendanceComponent implements OnInit {
     } else {
       this.courses = [];
     }
+  }
+
+  resetProg() {
+    this.programmeTitle = '';
+    this.courseTitle = '';
+  }
+
+  resetCourse() {
+    this.courseTitle = '';
   }
 
   onSubmit() {

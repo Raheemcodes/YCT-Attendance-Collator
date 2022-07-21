@@ -89,6 +89,9 @@ app-aggregate {
   @include general-flex();
 }
 
+app-graph {
+  @include general-flex();
+}
 app-record {
   @include general-flex();
 }
@@ -98,6 +101,10 @@ app-student-attendance {
 }
 
 app-create-record {
+  @include general-flex();
+}
+
+app-aggregate-records {
   @include general-flex();
 }
 

@@ -1,19 +1,19 @@
-import { NgModel, NgForm } from '@angular/forms';
-import { Session, Programme, Course } from './../../shared/shared.model';
+import { NgModel } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AttendanceService } from './../../attendance/attendance.service';
-import { Component, OnInit } from '@angular/core';
+import { Course, Programme, Session } from './../../shared/shared.model';
 
 @Component({
-  selector: 'app-aggregate-records',
-  templateUrl: './aggregate-records.component.html',
+  selector: 'app-graph',
+  templateUrl: './graph.component.html',
   styleUrls: [
     './../../attendance/create-record/create-record.component.scss',
     './../../attendance/mark-attendance/mark-attendance.component.scss',
-    './aggregate-records.component.scss',
+    './graph.component.scss',
   ],
 })
-export class AggregateRecordsComponent implements OnInit {
+export class GraphComponent implements OnInit {
   isLoading: boolean = false;
   error: any;
   sessions: Session[] = [];

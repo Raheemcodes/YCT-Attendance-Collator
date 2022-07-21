@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { AttendanceResolver } from './../attendance/attendance.resolver';
 import { AuthGuard } from './../auth/auth.guard';
-import { DetailsComponent } from './details/details.component';
 import { ProfileComponent } from './profile.component';
 
 @NgModule({
@@ -14,15 +14,16 @@ import { ProfileComponent } from './profile.component';
         path: '',
         component: ProfileComponent,
         canActivate: [AuthGuard],
+        resolve: [AttendanceResolver],
         children: [
           {
             path: 'details',
-            component: DetailsComponent,
-            canActivate: [AuthGuard],
+            loadChildren: () =>
+              import('./details/details.module').then((m) => m.DetailsModule),
           },
         ],
       },
     ]),
-  ]
+  ],
 })
 export class ProfileModule {}

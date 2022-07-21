@@ -18,7 +18,6 @@ export class DetailsComponent implements OnInit, OnDestroy {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private attendanceService: AttendanceService,
   ) {}
 
   ngOnInit(): void {
@@ -29,7 +28,6 @@ export class DetailsComponent implements OnInit, OnDestroy {
       this.router.navigate([route]);
     };
     this.authService.user.subscribe((user) => {
-      this.attendanceService.isLoading.next(!!user);
       this.user = user;
     });
     this.firstName = this.user.name.split(' ')[1];

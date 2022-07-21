@@ -129,16 +129,14 @@
   <div class="profile-nav-container">
     <div class="profile-nav-cover">
       <ul id="profile-nav" [@navWidth]="state">
-        <li>
+        <li routerLink="/aggregate-records" (click)="onClick()">
           <a>Aggregate Records</a>
         </li>
-        <li>
+        <li routerLink="/graph">
           <a>Graphical Analysis</a>
         </li>
         <li
-          [routerLink]="
-            screenWidth >= 768 ? '/profile/details' : '/details'
-          "
+          [routerLink]="screenWidth >= 768 ? '/profile/details' : '/details'"
           (click)="onClick()"
         >
           <a>Account Details</a>

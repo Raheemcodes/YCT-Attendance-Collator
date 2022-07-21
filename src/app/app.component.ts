@@ -16,8 +16,8 @@ export class AppComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private attendanceSerice: AttendanceService,
-    @Inject(PLATFORM_ID) private platformId,
+    private attendanceService: AttendanceService,
+    @Inject(PLATFORM_ID) private platformId
   ) {}
 
   ngOnInit(): void {
@@ -28,20 +28,19 @@ export class AppComponent implements OnInit {
 
       if (
         location.pathname == '/' ||
-        location.pathname == '/not-found' ||
         location.pathname == '/login' ||
         location.pathname == '/signup' ||
+        location.pathname == '/not-found' ||
         location.pathname.includes('attendance')
-      ) {
+      )
         setTimeout(() => {
           if (document.body.hasAttribute('style')) {
             document.body.removeAttribute('style');
           }
           this.loaded = true;
         }, 3000);
-      }
 
-      this.attendanceSerice.isLoading.subscribe((res) => {
+      this.attendanceService.isLoading.subscribe((res) => {
         this.loaded = res;
 
         document.body.style.overflow = 'hidden';

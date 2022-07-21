@@ -338,7 +338,7 @@
               placeholder="Password"
               ngModel
               required
-              minlength="8"
+              pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*]).{8,}$"
               #signupPassword="ngModel"
             />
             <span
