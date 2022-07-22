@@ -7,11 +7,10 @@ import { RouterModule } from '@angular/router';
 import { AttendanceResolver } from './../../attendance/attendance.resolver';
 import { AuthGuard } from './../../auth/auth.guard';
 import { GraphComponent } from './graph.component';
-
-
+import { ContentComponent } from './content/content.component';
 
 @NgModule({
-  declarations: [GraphComponent],
+  declarations: [GraphComponent, ContentComponent],
   imports: [
     CommonModule,
     MatFormFieldModule,
@@ -24,7 +23,13 @@ import { GraphComponent } from './graph.component';
         resolve: [AttendanceResolver],
         canActivate: [AuthGuard],
       },
+      {
+        path: ':sessionId/:progId/:courseId',
+        component: ContentComponent,
+        resolve: [AttendanceResolver],
+        canActivate: [AuthGuard],
+      },
     ]),
   ],
 })
-export class GraphModule { }
+export class GraphModule {}

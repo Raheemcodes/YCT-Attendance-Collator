@@ -96,7 +96,7 @@ export class GraphComponent implements OnInit {
     );
 
     this.router.navigate([
-      '/aggregate',
+      '/graph',
       this.sessionId,
       this.programmeId,
       course._id,

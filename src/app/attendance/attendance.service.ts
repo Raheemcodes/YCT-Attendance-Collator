@@ -1,4 +1,3 @@
-import { Coordinates } from './../map/map.component';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {
@@ -7,15 +6,16 @@ import {
   map,
   Subject,
   tap,
-  throwError,
+  throwError
 } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import {
   AggregateAttendanceLine,
   AttendanceRecord,
   Programme,
-  Session,
+  Session
 } from '../shared/shared.model';
+import { Coordinates } from './../map/map.component';
 
 @Injectable({
   providedIn: 'root',
@@ -24,7 +24,6 @@ export class AttendanceService {
   sessions: Session[] = [];
   confimation = new Subject<'cancel' | 'proceed'>();
   sessionsChanged = new Subject<Session[]>();
-  isLoading = new Subject<boolean>();
   link = new BehaviorSubject<{ token: string; tokenResetExpiration: string }>(
     null,
   );
@@ -160,7 +159,6 @@ export class AttendanceService {
   }
 
   fetchSessions() {
-    this.isLoading.next(false);
     return this.http
     .get<Session[]>(environment.restApiAddress + '/sessions')
     .pipe(
@@ -168,7 +166,6 @@ export class AttendanceService {
         return resData.sessions;
       }),
       tap((sessions) => {
-          this.isLoading.next(true);
           this.setSessions(sessions);
         }),
         catchError((err: HttpErrorResponse) => throwError(err)),
