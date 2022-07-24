@@ -178,7 +178,7 @@
   right: -60vw;
   bottom: 0;
   z-index: 20;
-  overflow-y: scroll;
+  overflow-y: auto;
 
   .close-nav {
     fill: #f5f5f5;
@@ -194,7 +194,7 @@
     align-items: flex-start;
     justify-content: flex-start;
     width: 100%;
-    height: max-content;
+    height: 100%;
     list-style: none;
     padding: 0;
     margin: 2rem 1.5rem 2rem;
