@@ -4,7 +4,7 @@ import { Programme } from './../../shared/shared.model';
 import { Component, OnInit, Renderer2 } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { AttendanceService } from '../attendance.service';
-import { take } from 'rxjs';
+import { take, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-programmes',
@@ -30,7 +30,7 @@ export class ProgrammesComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private attendanceService: AttendanceService,
-    private renderer: Renderer2,
+    private renderer: Renderer2
   ) {}
 
   ngOnInit(): void {
@@ -113,7 +113,7 @@ export class ProgrammesComponent implements OnInit {
     const programmeId: string = listEl.id;
     const courses: NodeList = listEl.querySelectorAll('.course');
     const programme: Programme = this.programmes.find(
-      (prog) => prog._id == programmeId,
+      (prog) => prog._id == programmeId
     );
 
     courses.forEach((course: HTMLLIElement, index: number) => {
@@ -134,12 +134,10 @@ export class ProgrammesComponent implements OnInit {
             newTitle: courseInput.value,
           });
         } else {
-          {
-            this.coursesArray.push({
-              _id: programme.courses[index]._id,
-              newTitle: null,
-            });
-          }
+          this.coursesArray.push({
+            _id: programme.courses[index]._id,
+            newTitle: null,
+          });
         }
       }
     });
@@ -201,6 +199,7 @@ export class ProgrammesComponent implements OnInit {
             });
         }
       } else {
+        this.coursesArray = [];
         this.confirm = false;
         this.confirmMsg = null;
       }
@@ -220,7 +219,7 @@ export class ProgrammesComponent implements OnInit {
       .modifyProgramme(
         this.sessionId,
         this.programmes[idx]._id,
-        form.value.edittedProg,
+        form.value.edittedProg
       )
       .subscribe({
         next: () => {

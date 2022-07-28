@@ -123,7 +123,6 @@ export class MarkAttendanceComponent implements OnInit {
             res.courseId,
             res.attendanceRecordId,
           ]);
-          console.log(res);
         },
         error: (errorMessage) => {
           this.isLoading = false;

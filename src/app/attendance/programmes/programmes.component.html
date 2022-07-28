@@ -4,8 +4,8 @@
 
 <h2 *ngIf="programmes.length == 0">
   You haven't added Programmes to this session.
-  <a routerLink="/create-record" [queryParams]="{ session: sessionId }"
-    >Click here!</a
+  <span routerLink="/create-record" [queryParams]="{ session: sessionId }"
+    >Click here!</span
   >
   to do so
 </h2>
@@ -172,7 +172,7 @@
             Cancel
           </button>
           <button class="edit-course__btn" (click)="onEditCourse(listEl)">
-            Edit All
+            Edit
           </button>
         </div>
         <div class="edit-btn__cover" *ngIf="courseDelete">

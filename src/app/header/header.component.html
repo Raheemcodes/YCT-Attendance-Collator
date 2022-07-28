@@ -12,33 +12,33 @@
       My Account
     </li>
     <li *ngIf="isAuthenticated" class="header-list__item">
-      <details #detail>
-        <summary (click)="toggleDetails(detail, $event)">
-          <a>Manage Attendance</a>
+      <details #detail >
+        <summary>
+          Manage Attendance
         </summary>
-        <ul class="attendance-actions">
-          <li
+        <div class="attendance-actions">
+          <span
             class="attendance-action"
             *ngIf="isAuthenticated"
             routerLink="/mark-attendance"
           >
             Mark Attendance
-          </li>
-          <li
+          </span>
+          <span
             class="attendance-action"
             *ngIf="isAuthenticated"
             routerLink="/create-record"
           >
             Create Record
-          </li>
-          <li
+          </span>
+          <span
             class="attendance-action"
             *ngIf="isAuthenticated"
             routerLink="/sessions"
           >
             Manage Records
-          </li>
-        </ul>
+          </span>
+        </div>
       </details>
     </li>
     <li

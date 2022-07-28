@@ -1,5 +1,50 @@
-<div class="container">
-<h2>Analysis of COM111</h2>
+<main class="main-container">
+  <div class="graph" *ngIf="dailyRecords.length > 0; else warning">
+    <h2>Analysis of {{ title }}</h2>
+    <h3 class="row-label__title"><span>Number of students ( % )</span></h3>
+    <div class="row-label first"></div>
+    <div
+      class="row-label"
+      *ngFor="let rowLabel of [10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0]"
+    >
+      {{ rowLabel * 10 }}
+    </div>
+    <div class="content">
+      <div class="box-container">
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box last"></div>
+      </div>
+      <div class="bar-container" #slide>
+        <div
+          class="bar"
+          *ngFor="let present of presentOnly"
+          [style]="'height:' + present + '%'"
+        ></div>
+        <div
+          class="column-label"
+          *ngFor="let dailyRecord of dailyRecords; let dailyidx = index"
+        >
+          Day {{ 1 + dailyidx }}
+        </div>
+      </div>
+      <h3 class="column-label__title">Daily Record</h3>
+    </div>
+  </div>
 
-
-</div>
+  <ng-template #warning>
+    <p>
+      You haven't marked any attendance.
+      <span routerLink="/mark-attendance">Click here!</span> to do so
+    </p>
+  </ng-template>
+</main>

@@ -44,7 +44,6 @@
   }
 
   details {
-    @include display-flex();
     summary {
       list-style: none;
 
@@ -62,7 +61,7 @@
       }
     }
 
-    ul {
+    div {
       z-index: 3;
       padding: 0;
       list-style: none;
@@ -75,7 +74,8 @@
       font-family: 'Montserrat', sans-serif;
       border-radius: 0 0 5px 5px;
 
-      li {
+      span {
+        display: block;
         padding: 0.5rem 1rem;
       }
     }

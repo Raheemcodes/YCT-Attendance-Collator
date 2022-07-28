@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { AttendanceRecord } from 'src/app/shared/shared.model';
-import {  AttendanceService } from '../attendance.service';
+import { AttendanceService } from '../attendance.service';
 
 @Component({
   selector: 'app-attendance-records',
@@ -9,25 +9,22 @@ import {  AttendanceService } from '../attendance.service';
   styleUrls: ['./attendance-records.component.scss'],
 })
 export class AttendanceRecordsComponent implements OnInit {
-  clicked: boolean = false;
   title: string;
   sessionId: string;
   progId: string;
   courseId: string;
-
   dailyRecords: AttendanceRecord[];
 
   constructor(
     private route: ActivatedRoute,
-    // private router: Router,
-    private attendanceService: AttendanceService,
+    private attendanceService: AttendanceService
   ) {}
 
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
-      const title = params['year'].toLowerCase();
-      this.progId = params['progId'].toLowerCase();
-      this.courseId = params['courseId'].toLowerCase();
+      const title = params['year'];
+      this.progId = params['progId'];
+      this.courseId = params['courseId'];
       this.sessionId = title;
 
       this.title = this.attendanceService
@@ -38,7 +35,7 @@ export class AttendanceRecordsComponent implements OnInit {
       this.dailyRecords = this.attendanceService.getRecords(
         title,
         this.progId,
-        this.courseId,
+        this.courseId
       );
     });
   }

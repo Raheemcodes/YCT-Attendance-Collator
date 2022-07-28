@@ -43,7 +43,7 @@ h2 {
   margin: 1rem;
   text-align: justify;
 
-  a {
+  span {
     color: #215c21;
     text-decoration: underline;
     font-weight: bold;
@@ -233,6 +233,7 @@ h2 {
       font-size: 1rem;
       margin: 1rem 0.5rem;
       align-items: flex-end;
+      width: 6rem;
 
       &:hover {
         background-color: #128512;

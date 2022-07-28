@@ -1,3 +1,4 @@
+import { Student } from './../map/student.model';
 export interface Session {
   _id: string;
   title: string;
@@ -13,6 +14,7 @@ export interface Programme {
 export interface Course {
   _id: string;
   title: string;
+  students: Student[];
   attendanceRecords?: AttendanceRecord[];
   aggregateAttendance?: AggregateAttendanceLine[];
 }

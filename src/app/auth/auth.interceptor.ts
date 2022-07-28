@@ -1,13 +1,10 @@
-import { environment } from 'src/environments/environment';
-import { take, exhaustMap } from 'rxjs/operators';
-import { Injectable } from '@angular/core';
 import {
-  HttpRequest,
-  HttpHandler,
-  HttpEvent,
-  HttpInterceptor,
+  HttpEvent, HttpHandler, HttpInterceptor, HttpRequest
 } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { exhaustMap, take } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 import { AuthService } from './auth.service';
 
 @Injectable()
@@ -16,14 +13,13 @@ export class AuthInterceptor implements HttpInterceptor {
 
   intercept(
     req: HttpRequest<unknown>,
-    next: HttpHandler,
+    next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
     return this.authService.user.pipe(
       take(1),
       exhaustMap((user) => {
         if (
-          (user &&
-            req.url.includes(environment.restApiAddress + '/create-record')) ||
+          req.url.includes(environment.restApiAddress + '/create-record') ||
           req.url.includes(environment.restApiAddress + '/add-record') ||
           req.url.includes(environment.restApiAddress + '/modify-programme') ||
           req.url.includes(environment.restApiAddress + '/delete-programme') ||
@@ -44,7 +40,7 @@ export class AuthInterceptor implements HttpInterceptor {
         } else {
           return next.handle(req);
         }
-      }),
+      })
     );
   }
 }

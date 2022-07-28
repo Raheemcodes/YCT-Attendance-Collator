@@ -57,14 +57,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }, 500);
   }
 
-  toggleDetails(detail: HTMLDetailsElement, e: Event) {
-    e.stopPropagation();
-    if (detail.hasAttribute('open')) {
-      detail.removeAttribute('open');
-    } else {
-      detail.setAttribute('open', '');
-    }
-  }
+  // toggleDetails(detail: HTMLDetailsElement, e: Event) {
+  //   // e.stopPropagation();
+  //   if (detail.hasAttribute('open')) {
+  //     detail.removeAttribute('open');
+  //   } else {
+  //     detail.setAttribute('open', '');
+  //   }
+  // }
 
   onLogout() {
     this.authService.logout();
