@@ -44,12 +44,6 @@ export class ProgrammesComponent implements OnInit {
         this.programmes = this.sort(this.attendanceService.getProgrammes(id));
       });
     });
-    // this.attendanceService.confimation.subscribe((res) => {
-    //   if (res == 'cancel') {
-    //     this.confirm = false;
-    //     this.confirmMsg = null;
-    //   }
-    // });
   }
 
   courseAction(course: HTMLLIElement, programeId: string, courseId: string) {
@@ -108,6 +102,10 @@ export class ProgrammesComponent implements OnInit {
     this.renderer.setStyle(form, 'display', 'flex');
   }
 
+  // split into edit and delete function abdul!!!
+  // split into edit and delete function abdul!!!
+  // split into edit and delete function abdul!!!
+  // split into edit and delete function abdul!!!
   onEditCourse(listEl: HTMLLIElement) {
     this.courseEditError = '';
     const programmeId: string = listEl.id;
@@ -146,6 +144,7 @@ export class ProgrammesComponent implements OnInit {
       this.courseEditError = 'No course was selected!';
       return;
     }
+
     if (this.courseEditError) {
       this.coursesArray = [];
       return;
@@ -159,8 +158,10 @@ export class ProgrammesComponent implements OnInit {
     this.attendanceService.confimation.pipe(take(1)).subscribe((res) => {
       if (res == 'proceed') {
         this.confirm = false;
+
         if (!this.courseDelete) {
           this.courseIsLoading = true;
+
           this.attendanceService
             .modifyCourse(this.sessionId, programmeId, this.coursesArray)
             .subscribe({
@@ -181,6 +182,7 @@ export class ProgrammesComponent implements OnInit {
             });
         } else {
           this.isLoading = true;
+
           this.attendanceService
             .deleteCourse(this.sessionId, programmeId, this.coursesArray)
             .subscribe({

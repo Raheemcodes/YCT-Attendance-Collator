@@ -1,4 +1,3 @@
-import { environment } from './src/environments/environment';
 import { APP_BASE_HREF } from '@angular/common';
 import { ngExpressEngine } from '@nguniversal/express-engine';
 import * as express from 'express';
@@ -26,13 +25,13 @@ export function app(): express.Express {
   server.set('view engine', 'html');
   server.set('views', distFolder);
 
-  server.use((req, res, next) => {
-    if (req.header('x-forwarded-proto') !== 'https') {
-      res.redirect(`https://${req.header('host')}${req.url}`)
-    } else {
-      next();
-    }
-  });
+  // server.use((req, res, next) => {
+  //   if (req.header('x-forwarded-proto') !== 'https') {
+  //     res.redirect(`https://${req.header('host')}${req.url}`)
+  //   } else {
+  //     next();
+  //   }
+  // });
 
   // Example Express Rest API endpoints
   // server.get('/api/**', (req, res) => { });
@@ -90,3 +89,4 @@ if (moduleFilename === __filename || moduleFilename.includes('iisnode')) {
 }
 
 export * from './src/main.server';
+

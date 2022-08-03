@@ -134,7 +134,7 @@
               *ngIf="!courseDelete"
               [id]="course._id"
               (click)="$event.stopImmediatePropagation()"
-              (keydown)="$event.keyCode == 13 ? onEditCourse(listEl) : null"
+              (keydown)="$event.key == 'Enter' ? onEditCourse(listEl) : null"
               [style]="
                 !!courseEditError ? 'border-color: rgb(119, 0, 0);' : null
               "
