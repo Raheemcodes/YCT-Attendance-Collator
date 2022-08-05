@@ -19,19 +19,19 @@ export function app(): express.Express {
     'html',
     ngExpressEngine({
       bootstrap: AppServerModule,
-    }),
+    })
   );
 
   server.set('view engine', 'html');
   server.set('views', distFolder);
 
-  // server.use((req, res, next) => {
-  //   if (req.header('x-forwarded-proto') !== 'https') {
-  //     res.redirect(`https://${req.header('host')}${req.url}`)
-  //   } else {
-  //     next();
-  //   }
-  // });
+  server.use((req, res, next) => {
+    if (req.header('x-forwarded-proto') !== 'https') {
+      res.redirect(`https://${req.header('host')}${req.url}`);
+    } else {
+      next();
+    }
+  });
 
   // Example Express Rest API endpoints
   // server.get('/api/**', (req, res) => { });
@@ -40,16 +40,8 @@ export function app(): express.Express {
     '*.*',
     express.static(distFolder, {
       maxAge: '1y',
-    }),
+    })
   );
-
-  // server.get('/sessions', (req, res, next) => {
-  //   if (true) {
-  //     res.redirect('/login');
-  //     return;
-  //   }
-  //   next();
-  // });
 
   // All regular routes use the Universal engine
   server.get('*', (req, res) => {
@@ -89,4 +81,3 @@ if (moduleFilename === __filename || moduleFilename.includes('iisnode')) {
 }
 
 export * from './src/main.server';
-

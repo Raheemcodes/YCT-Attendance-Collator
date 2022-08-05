@@ -13,7 +13,6 @@ import { AttendanceLine } from 'src/app/shared/shared.model';
     './student-attendance.component.scss',
   ],
 })
-
 export class StudentAttendanceComponent implements OnInit, OnDestroy {
   error: string;
   attendance: AttendanceLine[] = [];
@@ -43,7 +42,7 @@ export class StudentAttendanceComponent implements OnInit, OnDestroy {
 
   constructor(
     private route: ActivatedRoute,
-    private studentService: StudentService,
+    private studentService: StudentService
   ) {}
 
   ngOnInit(): void {
@@ -68,11 +67,11 @@ export class StudentAttendanceComponent implements OnInit, OnDestroy {
         this.courseId,
         this.recordId,
         this.token,
-        coordinate,
+        coordinate
       )
       .subscribe({
         next: (details) => {
-          this.details  = details
+          this.details = details;
           this.setAttendance();
         },
         error: (errorMessage) => {
@@ -97,23 +96,31 @@ export class StudentAttendanceComponent implements OnInit, OnDestroy {
     this.attendance = [...this.details.attendance];
 
     const time = new Date(
-      new Date(this.details.tokenResetExpiration).getTime() - Date.now(),
+      new Date(this.details.tokenResetExpiration).getTime() - Date.now()
     );
-
 
     this.hours = time.getUTCHours();
     this.minutes = time.getUTCMinutes();
+
+    if (this.minutes == 60) {
+      this.minutes = 0;
+      this.hours++;
+    }
     this.clearTimeout = setInterval(() => {
-      if (this.minutes == 0 && this.hours > 0) {
+      this.minutes--;
+      if (this.minutes == -1) {
         this.hours--;
-        this.minutes = 60;
+        this.minutes = 59;
+      }
+      if (this.minutes == 60) {
+        this.minutes = 0;
+        this.hours++;
       }
       if (this.minutes == 0 && this.hours == 0) {
         this.attendance = [];
         this.date = '';
-        return;
+        clearInterval(this.clearTimeout);
       }
-      this.minutes--;
     }, 60000);
 
     this.date = this.details.date.split(',')[0].replaceAll('/', '-');
@@ -137,7 +144,7 @@ export class StudentAttendanceComponent implements OnInit, OnDestroy {
 
   onSearch(searchInput: HTMLInputElement) {
     this.attendance = [...this.details.attendance].filter((attendanceLine) =>
-      attendanceLine.matricNumber.includes(searchInput.value.toUpperCase()),
+      attendanceLine.matricNumber.includes(searchInput.value.toUpperCase())
     );
 
     if (this.attendance.length == 0)

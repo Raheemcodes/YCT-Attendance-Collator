@@ -117,5 +117,13 @@
 </ul>
 
 <span *ngIf="attendance.length > 0 && !isLoading" class="timeout"
-  >Time Left - {{ hours }} hour : {{ minutes }} mins</span
+  >Time Left -
+  {{ hours.toString().length == 1 ? "0" + hours.toString() : hours.toString() }}
+  {{ hours > 1 ? "hours" : "hour" }} :
+  {{
+    minutes.toString().length == 1
+      ? "0" + minutes.toString()
+      : minutes.toString()
+  }}
+  {{ minutes > 1 ? "mins" : "min" }}</span
 >

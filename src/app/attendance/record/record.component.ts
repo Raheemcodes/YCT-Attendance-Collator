@@ -30,7 +30,7 @@ export class RecordComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private attendanceService: AttendanceService,
-    private authService: AuthService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -43,7 +43,7 @@ export class RecordComponent implements OnInit, OnDestroy {
         this.sessionId,
         this.progId,
         this.courseId,
-        this.recordId,
+        this.recordId
       );
       this.setAttendance();
 
@@ -52,7 +52,7 @@ export class RecordComponent implements OnInit, OnDestroy {
           this.sessionId,
           this.progId,
           this.courseId,
-          this.recordId,
+          this.recordId
         );
         this.setAttendance();
       });
@@ -99,18 +99,30 @@ export class RecordComponent implements OnInit, OnDestroy {
       if (new Date(this.details.tokenResetExpiration) > new Date() && !!user) {
         this.link = `${environment.frontEndAddress}/attendance/${user.id}/${this.sessionId}/${this.progId}/${this.courseId}/${this.recordId}/${this.details.token}`;
         const time = new Date(
-          new Date(this.details.tokenResetExpiration).getTime() - Date.now(),
+          new Date(this.details.tokenResetExpiration).getTime() - Date.now()
         );
 
         this.hours = time.getUTCHours();
         this.minutes = time.getUTCMinutes();
 
+        if (this.minutes == 60) {
+          this.minutes = 0;
+          this.hours++;
+        }
         this.clearTimeout = setInterval(() => {
-          if (this.minutes == 0) {
-            this.hours--;
-            this.minutes = 60;
-          }
           this.minutes--;
+          if (this.minutes == -1) {
+            this.hours--;
+            this.minutes = 59;
+          }
+          if (this.minutes == 60) {
+            this.minutes = 0;
+            this.hours++;
+          }
+
+          if (this.hours == 0 && this.minutes == 0) {
+            clearInterval(this.clearTimeout);
+          }
         }, 60000);
       }
     });
@@ -126,7 +138,7 @@ export class RecordComponent implements OnInit, OnDestroy {
         this.courseId,
         this.recordId,
         id,
-        status,
+        status
       )
       .subscribe({
         next: (res) => {
@@ -142,7 +154,7 @@ export class RecordComponent implements OnInit, OnDestroy {
 
   onSearch(searchInput: HTMLInputElement) {
     this.attendance = [...this.details.attendance].filter((attendanceLine) =>
-      attendanceLine.matricNumber.includes(searchInput.value.toUpperCase()),
+      attendanceLine.matricNumber.includes(searchInput.value.toUpperCase())
     );
 
     if (this.attendance.length == 0)
@@ -158,12 +170,12 @@ export class RecordComponent implements OnInit, OnDestroy {
         if (nameA > nameB) return -1;
         return 0;
       });
-      status.classList.remove('inactive')
-      index.classList.add('inactive')
+      status.classList.remove('inactive');
+      index.classList.add('inactive');
     } else {
-      this.attendance = [...this.details.attendance]
-      status.classList.add('inactive')
-      index.classList.remove('inactive')
+      this.attendance = [...this.details.attendance];
+      status.classList.add('inactive');
+      index.classList.remove('inactive');
     }
   }
 

@@ -2,7 +2,6 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, Subject, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { AttendanceService } from './../attendance/attendance.service';
 
 @Injectable({
   providedIn: 'root',
@@ -10,29 +9,26 @@ import { AttendanceService } from './../attendance/attendance.service';
 export class MapService {
   error = new Subject<any>();
 
-  constructor(
-    private http: HttpClient,
-    private attendanceService: AttendanceService,
-  ) {}
+  constructor(private http: HttpClient) {}
 
   getCoordsFromAddress(address: string) {
     const urlAddress = encodeURI(address);
     return this.http
       .get<any>(
-        `https://maps.googleapis.com/maps/api/geocode/json?address=${urlAddress}&key=${environment.googleApi}`,
+        `https://maps.googleapis.com/maps/api/geocode/json?address=${urlAddress}&key=${environment.googleApi}`
       )
       .pipe(
         catchError((err) =>
           throwError(
-            () => new Error('Failed to fetch coordinates. Please try again!'),
-          ),
+            () => new Error('Failed to fetch coordinates. Please try again!')
+          )
         ),
         map((res) => {
           if (res.results.length == 0) return res;
           const coordinate = res.results[0].geometry.location;
 
           return coordinate;
-        }),
+        })
       );
   }
 
@@ -56,7 +52,7 @@ export class MapService {
     new google.maps.places.Autocomplete(input, options);
   }
 
-   handleErrors(errorRes: HttpErrorResponse) {
+  handleErrors(errorRes: HttpErrorResponse) {
     let errorMeassge = 'An unknown error occurred';
 
     console.log(errorRes.error);
