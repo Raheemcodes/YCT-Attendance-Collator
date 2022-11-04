@@ -1,4 +1,4 @@
-import { SharedModule } from 'yct-attendance-collator/src/app/shared/shared.module';
+import { SharedModule } from '../../shared/shared.module';
 import { AuthGuard } from './../../auth/auth.guard';
 import { RecordComponent } from './record.component';
 import { AttendanceResolver } from './../attendance.resolver';

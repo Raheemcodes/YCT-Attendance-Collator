@@ -3,7 +3,7 @@ import { Coordinates } from '../../map/map.component';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { StudentService } from '../student.service';
-import { AttendanceLine } from 'yct-attendance-collator/src/app/shared/shared.model';
+import { AttendanceLine } from '../../shared/shared.model';
 
 @Component({
   selector: 'app-student-attendance',

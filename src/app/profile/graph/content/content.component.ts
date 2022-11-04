@@ -10,7 +10,7 @@ import {
   AttendanceRecord,
   Course,
   AttendanceLine,
-} from 'yct-attendance-collator/src/app/shared/shared.model';
+} from '../../../shared/shared.model';
 import { AttendanceService } from './../../../attendance/attendance.service';
 
 @Component({

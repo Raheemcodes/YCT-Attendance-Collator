@@ -1,7 +1,7 @@
-import { Session } from 'yct-attendance-collator/src/app/shared/shared.model';
 import { Injectable } from '@angular/core';
 import { Resolve } from '@angular/router';
 import { Observable } from 'rxjs';
+import { Session } from '../shared/shared.model';
 import { AttendanceService } from './attendance.service';
 
 @Injectable({

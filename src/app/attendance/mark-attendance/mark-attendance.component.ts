@@ -1,11 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { NgModel, NgForm } from '@angular/forms';
+import { NgModel } from '@angular/forms';
 import { Router } from '@angular/router';
-import {
-  Course,
-  Programme,
-  Session,
-} from 'yct-attendance-collator/src/app/shared/shared.model';
+import { Course, Programme, Session } from '../../shared/shared.model';
 import { Coordinates } from './../../map/map.component';
 import { MapService } from './../../map/map.service';
 import { AttendanceService } from './../attendance.service';

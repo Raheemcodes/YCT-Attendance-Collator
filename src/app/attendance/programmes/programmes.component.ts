@@ -1,10 +1,10 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { NgForm } from '@angular/forms';
-import { Programme } from './../../shared/shared.model';
 import { Component, OnInit, Renderer2 } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { take } from 'rxjs';
 import { AttendanceService } from '../attendance.service';
-import { take, Subscription } from 'rxjs';
+import { Programme } from './../../shared/shared.model';
 
 @Component({
   selector: 'app-programmes',

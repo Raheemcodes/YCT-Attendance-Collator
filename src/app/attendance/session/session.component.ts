@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Session } from 'yct-attendance-collator/src/app/shared/shared.model';
+import { Session } from '../../shared/shared.model';
 import { AttendanceService } from '../attendance.service';
 
 @Component({

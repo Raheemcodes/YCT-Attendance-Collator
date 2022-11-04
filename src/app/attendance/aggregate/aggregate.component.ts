@@ -1,7 +1,7 @@
 import { AttendanceService } from './../attendance.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { AggregateAttendanceLine } from 'yct-attendance-collator/src/app/shared/shared.model';
+import { AggregateAttendanceLine } from '../../shared/shared.model';
 
 @Component({
   selector: 'app-aggregate',
