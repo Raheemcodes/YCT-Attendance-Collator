@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { AttendanceRecord } from 'src/app/shared/shared.model';
+import { AttendanceRecord } from 'yct-attendance-collator/src/app/shared/shared.model';
 import { AttendanceService } from '../attendance.service';
 
 @Component({

@@ -1,4 +1,4 @@
-import { Student } from './../map/student.model';
+import { Student } from '../../../../src/app/map/student.model';
 export interface Session {
   _id: string;
   title: string;

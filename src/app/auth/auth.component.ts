@@ -13,6 +13,8 @@ import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GoogleLoginProvider, SocialAuthService } from 'angularx-social-login';
 import { Subscription } from 'rxjs';
+import { SharedService } from '../shared/shared.service';
+
 import { AuthService } from './auth.service';
 
 @Component({
@@ -39,9 +41,16 @@ export class AuthComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     private socialAuthService: SocialAuthService,
+    shredService: SharedService,
     private renderer: Renderer2,
-    @Inject(PLATFORM_ID) private platformId,
-  ) {}
+    @Inject(PLATFORM_ID) private platformId
+  ) {
+    shredService.setMeta({
+      title: 'YCT Attendance Collator',
+      description: 'YCT attendance Collator Auth Page.',
+      keywords: 'YCT, Yabatech',
+    });
+  }
 
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
@@ -98,7 +107,7 @@ export class AuthComponent implements OnInit, OnDestroy {
         this.error = errorMessage;
         this.isLoading = false;
         this.isBio = false;
-      },
+      }
     );
   }
 
@@ -133,7 +142,7 @@ export class AuthComponent implements OnInit, OnDestroy {
 
   async onGoogleAuth(type: boolean) {
     const { idToken } = await this.socialAuthService.signIn(
-      GoogleLoginProvider.PROVIDER_ID,
+      GoogleLoginProvider.PROVIDER_ID
     );
 
     this.authService.googleAuth(idToken).subscribe(
@@ -144,7 +153,7 @@ export class AuthComponent implements OnInit, OnDestroy {
       (errorMessage) => {
         this.error = errorMessage;
         this.isLoading = false;
-      },
+      }
     );
   }
 
@@ -173,12 +182,12 @@ export class AuthComponent implements OnInit, OnDestroy {
       this.renderer.setStyle(
         this.underline.nativeElement,
         'transform',
-        'translateX(100%)',
+        'translateX(100%)'
       );
       this.renderer.setStyle(
         this.formContainer.nativeElement,
         'transform',
-        'translateX(-50%)',
+        'translateX(-50%)'
       );
       this.renderer.removeClass(this.loginTitle.nativeElement, 'active');
       this.renderer.addClass(this.signupTitle.nativeElement, 'active');
@@ -193,12 +202,12 @@ export class AuthComponent implements OnInit, OnDestroy {
     this.renderer.setStyle(
       this.underline.nativeElement,
       'transform',
-      'translateX(0)',
+      'translateX(0)'
     );
     this.renderer.setStyle(
       this.formContainer.nativeElement,
       'transform',
-      'translateX(0)',
+      'translateX(0)'
     );
     this.loginTimeout = setTimeout(() => {
       this.router.navigate(['login']);

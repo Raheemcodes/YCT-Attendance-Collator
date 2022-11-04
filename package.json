@@ -13,7 +13,7 @@
     "test": "ng test",
     "dev:ssr": "ng run yct-biometric-auth:serve-ssr",
     "serve:ssr": "node dist/yct-biometric-auth/server/main.js",
-    "build:ssr": "ng build && ng run yct-biometric-auth:server",
+    "build:ssr": "npm run prerender  && ng run yct-biometric-auth:server",
     "prerender": "ng run yct-biometric-auth:prerender"
   },
   "private": true,

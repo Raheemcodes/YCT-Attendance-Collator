@@ -35,7 +35,7 @@ export const bufferToBase64URLString = (buffer: ArrayBuffer): string => {
 };
 
 export const base64URLStringToBuffer = (
-  base64URLString: string,
+  base64URLString: string
 ): ArrayBuffer => {
   // Convert from Base64URL to Base64
   const base64 = base64URLString.replace(/-/g, '+').replace(/_/g, '/');
@@ -77,7 +77,7 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private attendnaceService: AttendanceService,
-    private router: Router,
+    private router: Router
   ) {}
 
   login(email: string, password: string) {
@@ -94,9 +94,9 @@ export class AuthService {
             resData.id,
             resData.name,
             resData.token,
-            +resData.expiresIn,
+            +resData.expiresIn
           );
-        }),
+        })
       );
   }
 
@@ -104,7 +104,7 @@ export class AuthService {
     email: string,
     fullName: string,
     password: string,
-    confirmPassword: string,
+    confirmPassword: string
   ) {
     return this.http
       .post(environment.restApiAddress + '/signup', {
@@ -117,7 +117,7 @@ export class AuthService {
         catchError(this.handleErrors),
         tap((resData: any) => {
           this.signedUSer = resData.userId;
-        }),
+        })
       );
   }
 
@@ -133,13 +133,13 @@ export class AuthService {
             ...createCredentialDefaultArgs,
             challenge: Uint8Array.from(
               createCredentialDefaultArgs.challenge,
-              (c: any) => c.charCodeAt(0),
+              (c: any) => c.charCodeAt(0)
             ),
             user: {
               ...createCredentialDefaultArgs.user,
               id: Uint8Array.from(
                 atob(createCredentialDefaultArgs.user.id),
-                (c: any) => c.charCodeAt(0),
+                (c: any) => c.charCodeAt(0)
               ),
             },
           };
@@ -151,10 +151,10 @@ export class AuthService {
           const credential = {
             response: {
               clientDataJSON: bufferToBase64URLString(
-                resData.response.clientDataJSON,
+                resData.response.clientDataJSON
               ),
               attestationObject: bufferToBase64URLString(
-                resData.response.attestationObject,
+                resData.response.attestationObject
               ),
             },
           };
@@ -164,14 +164,14 @@ export class AuthService {
               environment.restApiAddress + '/webauthn-reg-verification',
               {
                 credential,
-              },
+              }
             )
             .pipe(catchError(this.handleErrors))
             .subscribe({
               next: (res: any) => this.sucessMessage.next(!!res.message),
               error: (err) => this.errorMessage.next(err),
             });
-        }),
+        })
       );
   }
 
@@ -186,14 +186,14 @@ export class AuthService {
           const credentials: PublicKeyCredentialRequestOptions = {
             ...createCredentialDefaultArgs,
             challenge: base64URLStringToBuffer(
-              createCredentialDefaultArgs.challenge,
+              createCredentialDefaultArgs.challenge
             ),
 
             allowCredentials: [
               {
                 ...createCredentialDefaultArgs.allowCredentials[0],
                 id: base64URLStringToBuffer(
-                  createCredentialDefaultArgs.allowCredentials[0].id,
+                  createCredentialDefaultArgs.allowCredentials[0].id
                 ),
               },
             ],
@@ -206,10 +206,10 @@ export class AuthService {
             id: resData.id,
             response: {
               authenticatorData: bufferToBase64URLString(
-                resData.response.authenticatorData,
+                resData.response.authenticatorData
               ),
               clientDataJSON: bufferToBase64URLString(
-                resData.response.clientDataJSON,
+                resData.response.clientDataJSON
               ),
               signature: bufferToBase64URLString(resData.response.signature),
               userHandle: bufferToBase64URLString(resData.response.userHandle),
@@ -221,7 +221,7 @@ export class AuthService {
               environment.restApiAddress + '/webauthn-login-verification',
               {
                 credential,
-              },
+              }
             )
             .pipe(
               catchError(this.handleErrors),
@@ -231,9 +231,9 @@ export class AuthService {
                   resData.id,
                   resData.name,
                   resData.token,
-                  +resData.expiresIn,
+                  +resData.expiresIn
                 );
-              }),
+              })
             )
             .subscribe({
               next: () => {
@@ -243,7 +243,7 @@ export class AuthService {
                 this.errorMessage.next(err);
               },
             });
-        }),
+        })
       );
   }
 
@@ -260,9 +260,9 @@ export class AuthService {
             resData.id,
             resData.name,
             resData.token,
-            +resData.expiresIn,
+            +resData.expiresIn
           );
-        }),
+        })
       );
   }
 
@@ -283,7 +283,7 @@ export class AuthService {
       userData.id,
       userData.name,
       userData._token,
-      new Date(userData._tokenExpirationDate),
+      new Date(userData._tokenExpirationDate)
     );
 
     if (loadedUser.token) {
@@ -317,7 +317,7 @@ export class AuthService {
     userId: string,
     name: string,
     token: string,
-    expiresIn: number,
+    expiresIn: number
   ) {
     const expirationDate = new Date(Date.now() + expiresIn * 1000);
     const user = new User(email, userId, name, token, expirationDate);

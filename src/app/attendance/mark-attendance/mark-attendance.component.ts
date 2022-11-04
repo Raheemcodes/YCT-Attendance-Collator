@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { NgModel, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Course, Programme, Session } from 'src/app/shared/shared.model';
+import {
+  Course,
+  Programme,
+  Session,
+} from 'yct-attendance-collator/src/app/shared/shared.model';
 import { Coordinates } from './../../map/map.component';
 import { MapService } from './../../map/map.service';
 import { AttendanceService } from './../attendance.service';
@@ -36,7 +40,7 @@ export class MarkAttendanceComponent implements OnInit {
   constructor(
     private attendanceService: AttendanceService,
     private mapService: MapService,
-    private router: Router,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -51,7 +55,7 @@ export class MarkAttendanceComponent implements OnInit {
     if (input.value == '')
       this.sessions = [...this.attendanceService.getSessions()];
     this.sessions = [...this.sessions].filter((session) =>
-      session.title.includes(input.value),
+      session.title.includes(input.value)
     );
   }
 
@@ -59,11 +63,11 @@ export class MarkAttendanceComponent implements OnInit {
     if (prog.value == '')
       this.sessions = [...this.attendanceService.getSessions()];
     const session = this.sessions.find(
-      (session) => session.title == this.sessionTitle,
+      (session) => session.title == this.sessionTitle
     );
     if (session) {
       this.programmes = [...session.programmes].filter((programme) =>
-        programme.title.includes(prog.value.toUpperCase()),
+        programme.title.includes(prog.value.toUpperCase())
       );
     } else {
       this.programmes = [];
@@ -74,11 +78,11 @@ export class MarkAttendanceComponent implements OnInit {
     if (course.value == '')
       this.sessions = [...this.attendanceService.getSessions()];
     const programme = this.programmes.find(
-      (programme) => programme.title == this.programmeTitle,
+      (programme) => programme.title == this.programmeTitle
     );
     if (programme) {
       this.courses = [...programme.courses].filter((filteredCourse) =>
-        filteredCourse.title.includes(course.value.toUpperCase()),
+        filteredCourse.title.includes(course.value.toUpperCase())
       );
     } else {
       this.courses = [];
@@ -106,7 +110,7 @@ export class MarkAttendanceComponent implements OnInit {
         this.courseTitle,
         this.hour,
         this.minute,
-        coordinates,
+        coordinates
       )
       .subscribe({
         next: (res: {

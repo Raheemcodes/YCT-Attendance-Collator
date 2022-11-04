@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AttendanceService } from './../../attendance/attendance.service';
+import { AttendanceService } from '../../../../../src/app/attendance/attendance.service';
 
 @Component({
   selector: 'app-modal',

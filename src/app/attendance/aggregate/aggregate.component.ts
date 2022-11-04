@@ -1,7 +1,7 @@
 import { AttendanceService } from './../attendance.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { AggregateAttendanceLine } from 'src/app/shared/shared.model';
+import { AggregateAttendanceLine } from 'yct-attendance-collator/src/app/shared/shared.model';
 
 @Component({
   selector: 'app-aggregate',
@@ -25,7 +25,7 @@ export class AggregateComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private attendanceService: AttendanceService,
+    private attendanceService: AttendanceService
   ) {}
 
   ngOnInit(): void {
@@ -40,17 +40,17 @@ export class AggregateComponent implements OnInit {
     this.totalRecord = this.attendanceService.getRecords(
       this.sessionId,
       this.progId,
-      this.courseId,
+      this.courseId
     ).length;
 
     this.details = this.attendanceService
       .getAggregateRecord(this.sessionId, this.progId, this.courseId)
       .filter(
         (attendanceLine) =>
-          attendanceLine.timesPresent / this.totalRecord > +this.filterer / 100,
+          attendanceLine.timesPresent / this.totalRecord > +this.filterer / 100
       );
 
-      this.attendance = this.details
+    this.attendance = this.details;
   }
 
   filter() {
@@ -61,21 +61,20 @@ export class AggregateComponent implements OnInit {
       ...this.attendanceService.getAggregateRecord(
         this.sessionId,
         this.progId,
-        this.courseId,
+        this.courseId
       ),
     ].filter(
       (attendanceLine) =>
-        attendanceLine.timesPresent / this.totalRecord >= this.filterer / 100,
+        attendanceLine.timesPresent / this.totalRecord >= this.filterer / 100
     );
   }
 
   onSearch(searchInput: HTMLInputElement) {
     this.attendance = [...this.details].filter((attendanceLine) =>
-      attendanceLine.matricNumber.includes(searchInput.value.toUpperCase()),
+      attendanceLine.matricNumber.includes(searchInput.value.toUpperCase())
     );
 
-    if (this.attendance.length == 0)
-      this.attendance = [...this.details];
+    if (this.attendance.length == 0) this.attendance = [...this.details];
   }
 
   roundUp(number: number) {
