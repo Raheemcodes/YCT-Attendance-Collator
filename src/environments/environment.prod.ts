@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  restApiAddress: 'https://yct-rest-api.onrender.com.',
+  restApiAddress: 'https://yct-rest-api.onrender.com',
   frontEndAddress: 'https://yct-attendance-collator.onrender.com',
   publicKey:
     'pk_test_51IwvJoJe2ZuBrbA8cGNV9yvaDcTgQUDGW8RJF5m1IlaHAHnnNUfX2GslRbysl0eCCrFg34bCYoSdpYklrJE9gf6R00a5Hxx4D6',
