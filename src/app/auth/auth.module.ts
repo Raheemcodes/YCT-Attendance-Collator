@@ -1,16 +1,17 @@
-import { environment } from 'src/environments/environment';
 import { ValidateEqualModule } from 'ng-validate-equal';
 import {
-  SocialLoginModule,
   GoogleLoginProvider,
   SocialAuthServiceConfig,
-} from 'angularx-social-login';
-import { FormsModule } from '@angular/forms';
+  SocialLoginModule,
+} from '@abacritt/angularx-social-login';
+import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { environment } from 'src/environments/environment';
 import { CredComponent } from './cred/cred.component';
 
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
+import { FormsModule } from '@angular/forms';
 import { AuthComponent } from './auth.component';
 
 @NgModule({
