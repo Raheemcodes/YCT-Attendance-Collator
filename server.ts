@@ -3,6 +3,7 @@ import { ngExpressEngine } from '@nguniversal/express-engine';
 import * as express from 'express';
 import { existsSync } from 'fs';
 import { join } from 'path';
+import { environment } from 'src/environments/environment';
 import 'zone.js/dist/zone-node';
 import { AppServerModule } from './src/main.server';
 
@@ -26,7 +27,7 @@ export function app(): express.Express {
   server.set('views', distFolder);
 
   server.use((req, res, next) => {
-    if (req.header('x-forwarded-proto') !== 'https') {
+    if (environment.production && req.header('x-forwarded-proto') !== 'https') {
       res.redirect(`https://${req.header('host')}${req.url}`);
     } else {
       next();
@@ -45,11 +46,6 @@ export function app(): express.Express {
 
   // All regular routes use the Universal engine
   server.get('*', (req, res) => {
-    // if (!req.url.includes('https') && environment.production) {
-    //   res.redirect('https://yct-attendance-collator.herokuapp.com');
-    //   return;
-    // }
-
     res.render(indexHtml, {
       req,
       providers: [{ provide: APP_BASE_HREF, useValue: req.baseUrl }],
