@@ -2,10 +2,8 @@ export const environment = {
   production: true,
   restApiAddress: 'https://yct-rest-api.onrender.com',
   frontEndAddress: 'https://yct-attendance-collator.onrender.com',
-  publicKey:
-    'pk_test_51IwvJoJe2ZuBrbA8cGNV9yvaDcTgQUDGW8RJF5m1IlaHAHnnNUfX2GslRbysl0eCCrFg34bCYoSdpYklrJE9gf6R00a5Hxx4D6',
   clientId:
-    '889876418133-t0tficufcnfbfubiofgljp3hsbngil7s.apps.googleusercontent.com',
+    '889876418133-31t3il01rf0hkfef0erfki6sd9netaik.apps.googleusercontent.com',
   googleApi:
     'AIzaSyDNqjr6JjCuSobkq8eJ0iYY-SB7n4lOfbEAIzaSyDNqjr6JjCuSobkq8eJ0iYY-SB7n4lOfbE',
 };

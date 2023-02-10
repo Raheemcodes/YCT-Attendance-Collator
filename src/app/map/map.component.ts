@@ -2,9 +2,10 @@ import {
   Component,
   ElementRef,
   EventEmitter,
-  Input, OnInit,
+  Input,
+  OnInit,
   Output,
-  ViewChild
+  ViewChild,
 } from '@angular/core';
 import { MapService } from './map.service';
 
@@ -30,9 +31,7 @@ export class MapComponent implements OnInit {
   error: string;
   success: boolean = false;
 
-  constructor(
-    private mapService: MapService,
-  ) {}
+  constructor(private mapService: MapService) {}
   coordinates: Coordinates;
 
   ngOnInit(): void {
@@ -64,7 +63,7 @@ export class MapComponent implements OnInit {
   autoLocate() {
     if (!navigator.geolocation) {
       alert(
-        'Location feature is not available on your browser - please use a more modern one',
+        'Location feature is not available on your browser - please use a more modern one'
       );
       return;
     }
@@ -96,7 +95,7 @@ export class MapComponent implements OnInit {
           'Could not locate you unfortunately. Please enter an address manually';
         this.isLoading = false;
       },
-      { enableHighAccuracy: true, timeout: 5000, maximumAge: 0 },
+      { enableHighAccuracy: true, timeout: 5000, maximumAge: 0 }
     );
   }
 
@@ -150,5 +149,4 @@ export class MapComponent implements OnInit {
     this.isLoading2 = true;
     this.coordinateGenerated.emit(this.coordinates);
   }
-
 }

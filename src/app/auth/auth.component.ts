@@ -1,7 +1,9 @@
+import { environment } from './../../environments/environment';
 import { isPlatformBrowser } from '@angular/common';
 import {
   Component,
   ElementRef,
+  HostListener,
   Inject,
   OnDestroy,
   OnInit,
@@ -11,10 +13,6 @@ import {
 } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import {
-  GoogleLoginProvider,
-  SocialAuthService,
-} from '@abacritt/angularx-social-login';
 import { Subscription } from 'rxjs';
 import { SharedService } from '../shared/shared.service';
 
@@ -43,7 +41,6 @@ export class AuthComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private router: Router,
     private route: ActivatedRoute,
-    private socialAuthService: SocialAuthService,
     shredService: SharedService,
     private renderer: Renderer2,
     @Inject(PLATFORM_ID) private platformId
@@ -57,6 +54,8 @@ export class AuthComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
+      // this.load();
+
       this.userSub = this.authService.user.subscribe((user) => {
         if (!!user) {
           this.router.navigate(['/']);
@@ -85,6 +84,15 @@ export class AuthComponent implements OnInit, OnDestroy {
         this.isBio = false;
       });
     }
+  }
+
+  @HostListener('window:load')
+  load() {
+    google.accounts.id.initialize({
+      client_id: environment.clientId,
+      callback: this.onGoogleAuth,
+    });
+    google.accounts.id.prompt();
   }
 
   onLogin(form: NgForm) {
@@ -143,21 +151,21 @@ export class AuthComponent implements OnInit, OnDestroy {
       });
   }
 
-  async onGoogleAuth(type: boolean) {
-    const { idToken } = await this.socialAuthService.signIn(
-      GoogleLoginProvider.PROVIDER_ID
-    );
+  async onGoogleAuth(response: google.accounts.id.CredentialResponse) {
+    console.log(response);
 
-    this.authService.googleAuth(idToken).subscribe(
-      (resData) => {
-        this.signedup = type;
-        if (!type) this.router.navigate(['../'], { relativeTo: this.route });
+    const idToken = response.credential;
+
+    this.authService.googleAuth(idToken).subscribe({
+      next: (resData) => {
+        this.router.navigate(['../'], { relativeTo: this.route });
+        console.log(resData);
       },
-      (errorMessage) => {
+      error: (errorMessage) => {
         this.error = errorMessage;
         this.isLoading = false;
-      }
-    );
+      },
+    });
   }
 
   webauthnLogin(form: NgForm) {

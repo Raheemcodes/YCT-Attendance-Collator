@@ -76,6 +76,7 @@
               >Please enter a valid E-mail!</span
             >
           </div>
+
           <div class="form-input__cover" *ngIf="!isBio">
             <div class="biometric-cover">
               <input
@@ -246,7 +247,7 @@
           </div>
           <p><a href="/reset">Forgot Password?</a></p>
 
-          <div class="google-login__btn" (click)="onGoogleAuth(false)">
+          <div class="google-login__btn" >
             <div>
               <svg
                 version="1.1"
@@ -383,7 +384,7 @@
             <div></div>
           </div>
 
-          <div class="google-login__btn" (click)="onGoogleAuth(true)">
+          <div class="google-login__btn" >
             <div>
               <svg
                 version="1.1"

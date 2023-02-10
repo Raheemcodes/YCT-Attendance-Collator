@@ -1,12 +1,6 @@
-import { ValidateEqualModule } from 'ng-validate-equal';
-import {
-  GoogleLoginProvider,
-  SocialAuthServiceConfig,
-  SocialLoginModule,
-} from '@abacritt/angularx-social-login';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { environment } from 'src/environments/environment';
+import { ValidateEqualModule } from 'ng-validate-equal';
 import { CredComponent } from './cred/cred.component';
 
 import { NgModule } from '@angular/core';
@@ -19,7 +13,7 @@ import { AuthComponent } from './auth.component';
   imports: [
     CommonModule,
     FormsModule,
-    SocialLoginModule,
+
     ValidateEqualModule,
     RouterModule.forChild([
       {
@@ -32,19 +26,6 @@ import { AuthComponent } from './auth.component';
       },
     ]),
   ],
-  providers: [
-    {
-      provide: 'SocialAuthServiceConfig',
-      useValue: {
-        autoLogin: false,
-        providers: [
-          {
-            id: GoogleLoginProvider.PROVIDER_ID,
-            provider: new GoogleLoginProvider(environment.clientId),
-          },
-        ],
-      } as SocialAuthServiceConfig,
-    },
-  ],
+  providers: [],
 })
 export class AuthModule {}
