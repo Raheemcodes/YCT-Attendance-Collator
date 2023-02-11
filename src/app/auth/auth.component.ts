@@ -36,6 +36,7 @@ export class AuthComponent implements OnInit, OnDestroy {
   isAuthenticated: boolean = false;
   signupTimeout: any;
   loginTimeout: any;
+  clientId: string = environment.clientId;
 
   constructor(
     private authService: AuthService,
@@ -54,6 +55,8 @@ export class AuthComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
+      this.load();
+
       this.userSub = this.authService.user.subscribe((user) => {
         if (!!user) {
           this.router.navigate(['/']);
@@ -84,7 +87,6 @@ export class AuthComponent implements OnInit, OnDestroy {
     }
   }
 
-  @HostListener('window:load')
   load() {
     const btns: NodeListOf<HTMLButtonElement> =
       document.querySelectorAll('.google-login__btn');
