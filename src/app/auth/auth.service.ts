@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import {
   BehaviorSubject,
   catchError,
+  Observable,
   Subject,
   switchMap,
   tap,
@@ -247,7 +248,7 @@ export class AuthService {
       );
   }
 
-  googleAuth(idToken: string) {
+  googleAuth(idToken: string): Observable<AuthResponseData> {
     return this.http
       .post<AuthResponseData>(environment.restApiAddress + '/google-auth', {
         idToken,

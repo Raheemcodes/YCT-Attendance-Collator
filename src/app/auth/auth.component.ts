@@ -54,8 +54,6 @@ export class AuthComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
-      // this.load();
-
       this.userSub = this.authService.user.subscribe((user) => {
         if (!!user) {
           this.router.navigate(['/']);
@@ -88,10 +86,26 @@ export class AuthComponent implements OnInit, OnDestroy {
 
   @HostListener('window:load')
   load() {
+    const btns: NodeListOf<HTMLButtonElement> =
+      document.querySelectorAll('.google-login__btn');
+
     google.accounts.id.initialize({
       client_id: environment.clientId,
-      callback: this.onGoogleAuth,
+      callback: this.onGoogleAuth.bind(this),
     });
+
+    btns.forEach((btn) => {
+      google.accounts.id.renderButton(
+        btn,
+        {
+          type: 'standard',
+          theme: 'outline',
+          size: 'large',
+          text: 'signin_with',
+        } // customization attributes
+      );
+    });
+
     google.accounts.id.prompt();
   }
 
@@ -107,19 +121,19 @@ export class AuthComponent implements OnInit, OnDestroy {
     const email = form.value.email;
     const password = form.value.password;
 
-    this.authService.login(email, password).subscribe(
-      (resData) => {
+    this.authService.login(email, password).subscribe({
+      next: (resData) => {
         this.isLoading = false;
         this.isBio = false;
         form.reset();
         this.router.navigate(['../'], { relativeTo: this.route });
       },
-      (errorMessage) => {
+      error: (errorMessage) => {
         this.error = errorMessage;
         this.isLoading = false;
         this.isBio = false;
-      }
-    );
+      },
+    });
   }
 
   onSignup(form: NgForm) {
@@ -151,12 +165,10 @@ export class AuthComponent implements OnInit, OnDestroy {
       });
   }
 
-  async onGoogleAuth(response: google.accounts.id.CredentialResponse) {
-    console.log(response);
+  onGoogleAuth(response: google.accounts.id.CredentialResponse) {
+    const { credential } = response;
 
-    const idToken = response.credential;
-
-    this.authService.googleAuth(idToken).subscribe({
+    this.authService.googleAuth(credential).subscribe({
       next: (resData) => {
         this.router.navigate(['../'], { relativeTo: this.route });
         console.log(resData);
