@@ -12,10 +12,8 @@
       My Account
     </li>
     <li *ngIf="isAuthenticated" class="header-list__item">
-      <details #detail >
-        <summary>
-          Manage Attendance
-        </summary>
+      <details #detail>
+        <summary>Manage Attendance</summary>
         <div class="attendance-actions">
           <span
             class="attendance-action"
@@ -82,6 +80,7 @@
     </svg>
   </div>
 </header>
+
 <nav class="nav-bar" #nav>
   <svg
     (click)="closeNav()"

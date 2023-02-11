@@ -8,7 +8,7 @@ export const environment = {
   frontEndAddress: 'http://localhost:4200',
   clientId:
     '889876418133-31t3il01rf0hkfef0erfki6sd9netaik.apps.googleusercontent.com',
-  googleApi: 'AIzaSyDNqjr6JjCuSobkq8eJ0iYY-SB7n4lOfbE',
+  googleApi: 'AIzaSyBhX81McGaU6uM5alAQixm0qLaSj3ucBRE',
 };
 
 /*

@@ -1,5 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-@import url('https://fonts.googleapis.com/css2?family=Lobster+Two:wght@400;700&family=Montserrat:wght@400;700&family=Open+Sans:wght@400;700&family=Roboto:wght@400;700;900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Lobster+Two:wght@400;700&family=Montserrat:wght@400;700&family=Open+Sans:wght@400;700&family=Roboto:wght@400;700;900&display=swap");
 
 @mixin display-flex() {
   display: -webkit-box;
@@ -31,7 +31,6 @@
   button {
     cursor: pointer;
   }
-
 }
 
 html {
@@ -54,7 +53,7 @@ html {
 }
 
 body {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   background-color: whitesmoke;
   color: rgb(34, 34, 34);
   margin: 0;
@@ -224,3 +223,31 @@ app-session {
     transform: rotate(360deg);
   }
 }
+
+@keyframes slideIn {
+  0% {
+    right: -60vw;
+  }
+
+  60% {
+    right: 0;
+  }
+
+  80% {
+    right: -5vw;
+  }
+
+  100% {
+    right: 0;
+  }
+}
+
+@keyframes slideOut {
+  from {
+    right: 0;
+  }
+
+  to {
+    right: -60vw;
+  }
+} ;
