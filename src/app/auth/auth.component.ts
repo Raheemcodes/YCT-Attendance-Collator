@@ -90,6 +90,10 @@ export class AuthComponent implements OnInit, AfterViewInit, OnDestroy {
     if (isPlatformBrowser(this.platformId)) this.load();
   }
 
+  setLoading(val: boolean) {
+    this.isLoading = val;
+  }
+
   load() {
     const btns: NodeListOf<HTMLButtonElement> =
       document.querySelectorAll('.google-login__btn');
@@ -107,9 +111,6 @@ export class AuthComponent implements OnInit, AfterViewInit, OnDestroy {
           theme: 'outline',
           size: 'large',
           text: 'signin_with',
-          click_listener: () => {
-            this.isLoading = true;
-          },
         } // customization attributes
       );
     });
