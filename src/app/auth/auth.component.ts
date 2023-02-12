@@ -1,6 +1,7 @@
 import { environment } from './../../environments/environment';
 import { isPlatformBrowser } from '@angular/common';
 import {
+  AfterViewInit,
   Component,
   ElementRef,
   HostListener,
@@ -23,7 +24,7 @@ import { AuthService } from './auth.service';
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.scss'],
 })
-export class AuthComponent implements OnInit, OnDestroy {
+export class AuthComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('loginTitle') loginTitle: ElementRef<HTMLElement>;
   @ViewChild('signupTitle') signupTitle: ElementRef<HTMLElement>;
   @ViewChild('underline') underline: ElementRef<HTMLHRElement>;
@@ -55,8 +56,6 @@ export class AuthComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
-      this.load();
-
       this.userSub = this.authService.user.subscribe((user) => {
         if (!!user) {
           this.router.navigate(['/']);
@@ -87,6 +86,10 @@ export class AuthComponent implements OnInit, OnDestroy {
     }
   }
 
+  ngAfterViewInit(): void {
+    if (isPlatformBrowser(this.platformId)) this.load();
+  }
+
   load() {
     const btns: NodeListOf<HTMLButtonElement> =
       document.querySelectorAll('.google-login__btn');
@@ -104,6 +107,9 @@ export class AuthComponent implements OnInit, OnDestroy {
           theme: 'outline',
           size: 'large',
           text: 'signin_with',
+          click_listener: () => {
+            this.isLoading = true;
+          },
         } // customization attributes
       );
     });
@@ -114,12 +120,14 @@ export class AuthComponent implements OnInit, OnDestroy {
   onLogin(form: NgForm) {
     if (this.isBio) return;
     this.isLoading = true;
+
     if (!form.valid) {
       this.error = 'invalid form';
       this.isLoading = false;
       this.isBio = false;
       return;
     }
+
     const email = form.value.email;
     const password = form.value.password;
 
@@ -168,18 +176,26 @@ export class AuthComponent implements OnInit, OnDestroy {
   }
 
   onGoogleAuth(response: google.accounts.id.CredentialResponse) {
-    const { credential } = response;
+    if (!this.isLoading) {
+      this.isLoading = true;
 
-    this.authService.googleAuth(credential).subscribe({
-      next: (resData) => {
-        this.router.navigate(['../'], { relativeTo: this.route });
-        console.log(resData);
-      },
-      error: (errorMessage) => {
-        this.error = errorMessage;
-        this.isLoading = false;
-      },
-    });
+      const { credential } = response;
+
+      setTimeout(() => {
+        this.authService.googleAuth(credential).subscribe({
+          next: (resData) => {
+            this.isLoading = false;
+
+            this.router.navigate(['../'], { relativeTo: this.route });
+            console.log(resData);
+          },
+          error: (errorMessage) => {
+            this.isLoading = false;
+            this.error = errorMessage;
+          },
+        });
+      }, 5000);
+    }
   }
 
   webauthnLogin(form: NgForm) {

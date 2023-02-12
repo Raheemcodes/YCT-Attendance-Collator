@@ -239,17 +239,17 @@
           >
             Login
           </button>
+
           <div *ngIf="isLoading || isBio" class="lds-ellipsis loader">
             <div></div>
             <div></div>
             <div></div>
             <div></div>
           </div>
+
           <p><a href="/reset">Forgot Password?</a></p>
 
-          <div class="google-login__btn">
-            <!-- <span> Sign in with Google </span> -->
-          </div>
+          <div class="google-login__btn" [hidden]="isLoading"></div>
         </form>
         <form
           autocomplete="off"
@@ -348,6 +348,7 @@
           >
             Signup
           </button>
+
           <div *ngIf="isLoading" class="lds-ellipsis loader">
             <div></div>
             <div></div>
@@ -355,13 +356,12 @@
             <div></div>
           </div>
 
-          <div class="google-login__btn">
-            <!-- <span> Sign in with Google </span> -->
-          </div>
+          <div class="google-login__btn" [hidden]="isLoading"></div>
         </form>
       </div>
     </div>
   </div>
+
   <svg
     class="auth-illustration"
     xmlns="http://www.w3.org/2000/svg"
