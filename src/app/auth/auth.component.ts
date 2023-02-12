@@ -90,10 +90,6 @@ export class AuthComponent implements OnInit, AfterViewInit, OnDestroy {
     if (isPlatformBrowser(this.platformId)) this.load();
   }
 
-  setLoading(val: boolean) {
-    this.isLoading = val;
-  }
-
   load() {
     const btns: NodeListOf<HTMLButtonElement> =
       document.querySelectorAll('.google-login__btn');
