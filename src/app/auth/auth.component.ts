@@ -1,10 +1,8 @@
-import { environment } from './../../environments/environment';
 import { isPlatformBrowser } from '@angular/common';
 import {
   AfterViewInit,
   Component,
   ElementRef,
-  HostListener,
   Inject,
   OnDestroy,
   OnInit,
@@ -16,6 +14,7 @@ import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { SharedService } from '../shared/shared.service';
+import { environment } from './../../environments/environment';
 
 import { AuthService } from './auth.service';
 
